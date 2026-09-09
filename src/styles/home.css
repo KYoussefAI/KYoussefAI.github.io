@@ -840,3 +840,140 @@
     transform: none;
   }
 }
+
+/* =========================================================
+   LAPTOP HEIGHT — FORCE SCREEN 1 TO FIT ONE VIEWPORT
+   ========================================================= */
+
+@media (min-width: 1101px) and (max-height: 850px) {
+  .personal-hero {
+    height: 100svh;
+    min-height: 100svh;
+    box-sizing: border-box;
+
+    justify-content: flex-start;
+
+    padding-top: 92px;
+    padding-bottom: 16px;
+
+    gap: 14px;
+  }
+
+  .hero-profile-grid {
+    flex: 1;
+    align-items: center;
+    gap: 34px;
+  }
+
+  /* LEFT */
+
+  .personal-bio .portrait-wrap {
+    width: clamp(118px, 16svh, 150px);
+  }
+
+  .personal-bio > p {
+    font-size: clamp(14px, 1vw, 16px);
+    line-height: 1.55;
+    margin-top: 14px;
+    max-width: 350px;
+  }
+
+  .personal-bio > p + p {
+    margin-top: 12px;
+  }
+
+  /* MIDDLE */
+
+  .personal-location {
+    margin-bottom: 9px;
+  }
+
+  .personal-identity h1 {
+    font-size: clamp(50px, min(5vw, 8svh), 72px);
+    line-height: 0.98;
+  }
+
+  .personal-status {
+    margin-top: 14px;
+  }
+
+  .personal-title {
+    font-size: clamp(23px, 1.8vw, 27px);
+    margin-top: 7px;
+  }
+
+  .personal-academic {
+    margin-top: 11px;
+    font-size: 14px;
+  }
+
+  .personal-actions {
+    margin-top: 14px;
+  }
+
+  .personal-actions .button {
+    min-height: 42px;
+    padding-block: 10px;
+  }
+
+  /* RIGHT INDEX */
+
+  .home-index-list {
+    margin-top: 7px;
+  }
+
+  .home-index-list a {
+    min-height: 56px;
+    padding: 9px 0;
+  }
+
+  .home-index-name {
+    font-size: 16px;
+  }
+
+  .home-index-context {
+    font-size: 10px;
+  }
+
+  .home-index-connect {
+    margin-top: 9px;
+  }
+
+  .home-index-socials a {
+    min-height: 32px;
+  }
+
+  /* TIMELINE */
+
+  .timeline-label {
+    padding-bottom: 9px;
+  }
+
+  .career-track {
+    margin-top: 10px;
+  }
+
+  .career-connector {
+    height: 18px;
+    margin-block: 2px;
+  }
+
+  .career-period {
+    font-size: 10px;
+  }
+
+  .career-timeline h2 {
+    font-size: clamp(18px, 1.45vw, 22px);
+  }
+
+  .career-timeline li > p,
+  .career-direction > p {
+    font-size: 11px;
+    line-height: 1.4;
+    margin-top: 4px;
+  }
+
+  .career-badge {
+    font-size: 8px;
+  }
+}
