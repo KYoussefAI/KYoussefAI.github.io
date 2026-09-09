@@ -1,0 +1,5 @@
+---
+interface Props { number: string; label: string; title: string; accent?: string; description: string }
+const { number, label, title, accent, description } = Astro.props;
+---
+<header class="page-intro wrap"><p class="eyebrow">{number} / {label}</p><h1>{title}{accent && <><br /><span class="muted-heading">{accent}<span class="accent">.</span></span></>}</h1><p class="page-description">{description}</p><slot /></header>

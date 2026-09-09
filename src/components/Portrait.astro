@@ -1,0 +1,14 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+const photos = import.meta.glob<ImageMetadata>('../../public/images/youssef-khaloufi.{jpg,jpeg,png,webp}', { eager: true, import: 'default' });
+const photo = Object.values(photos)[0];
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+<div class="portrait-wrap">
+  <div class:list={['portrait', { 'has-photo': Boolean(photo) }]}>
+    {photo ? <Image src={photo} alt="Youssef Khaloufi" width={photo.width} height={photo.height} widths={[280, Math.min(640, photo.width)]} sizes="(max-width: 760px) 310px, 390px" format="webp" loading="eager" decoding="async" /> : <div class="portrait-placeholder" role="img" aria-label="Youssef Khaloufi monogram"><span class="portrait-cross top">+</span><span class="portrait-initials">YK<span>.</span></span><span class="portrait-cross bottom">+</span><span class="portrait-caption">YOUSSEF KHALOUFI<br />TANGIER, MOROCCO</span></div>}
+  </div>
+  {!compact && <span class="portrait-note"><span class="status-dot"></span> A foundation in statistics. A focus on systems.</span>}
+</div>

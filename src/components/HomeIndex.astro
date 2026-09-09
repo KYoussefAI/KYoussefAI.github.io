@@ -1,0 +1,70 @@
+---
+import { site } from '../data/site';
+import Arrow from './Arrow.astro';
+
+const sections = [
+  {
+    number: '01',
+    label: 'Introduction',
+    context: 'Profile & direction',
+    href: '#home',
+  },
+  {
+    number: '02',
+    label: 'Work',
+    context: 'Selected engineering projects',
+    href: '#selected-work',
+  },
+  {
+    number: '03',
+    label: 'Research',
+    context: 'Academic & experimental work',
+    href: '#research',
+  },
+  {
+    number: '04',
+    label: 'Connect',
+    context: 'Contact & profiles',
+    href: '#connect',
+  },
+];
+---
+
+<aside class="home-index" data-reveal aria-label="Homepage index and contact">
+  <nav aria-labelledby="home-index-title">
+    <h2 id="home-index-title" class="eyebrow">Index</h2>
+
+    <ol class="home-index-list">
+      {sections.map((item) => (
+        <li>
+          <a href={item.href}>
+            <span class="home-index-number">{item.number}</span>
+
+            <span class="home-index-copy">
+              <span class="home-index-name">{item.label}</span>
+              <span class="home-index-context">{item.context}</span>
+            </span>
+
+            <span class="home-index-arrow" aria-hidden="true">↓</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+
+  <div class="home-index-connect" aria-label="Contact links">
+    <div class="home-index-socials">
+      <a href={site.github} target="_blank" rel="noopener noreferrer">
+        GitHub <Arrow diagonal />
+      </a>
+
+      <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
+        LinkedIn <Arrow diagonal />
+      </a>
+
+      <a href={`mailto:${site.email}`}>
+        Email <Arrow diagonal />
+      </a>
+    </div>
+  </div>
+</aside>

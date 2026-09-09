@@ -1,0 +1,13 @@
+---
+import { type Project, projectUrl } from '../data/projects';
+import Arrow from './Arrow.astro';
+interface Props { project: Project; preview?: boolean }
+const { project, preview = false } = Astro.props;
+const bayesian = project.slug === 'bayesian-networks-pfe';
+---
+<article class:list={['research-card', { 'research-preview-card': preview }]}>
+  {!preview && <div class="research-visual" aria-hidden="true"><svg viewBox="0 0 480 175" fill="none" stroke="currentColor" stroke-width="1.2">
+    {bayesian ? <><path d="m148 40 73 46m-48-49 117 50m-65 17-60 38m132-39 40 37" /><path d="m212 79 10 8-13-1m72-7 10 9-13-2m-107 47-8 8 3-12m324 0" /><circle cx="155" cy="29" r="17" /><circle cx="234" cy="95" r="17" /><circle cx="305" cy="95" r="17" /><circle cx="148" cy="149" r="17" /><circle cx="351" cy="150" r="17" /><text x="40" y="100" stroke="none" fill="currentColor" font-size="13" font-family="monospace">P(A | B)</text></> : <><path d="m84 86 67-57 127 17 109 73-136 30-167-63Z" /><path d="m151 29 100 120m27-103-194 40" stroke-dasharray="4 7" opacity=".45" />{[[84,86],[151,29],[278,46],[387,119],[251,149]].map(([cx,cy]) => <circle cx={cx} cy={cy} r="6" fill="var(--surface)" />)}</>}
+  </svg><span class="eyebrow">{bayesian ? 'CONDITIONAL DEPENDENCE / CONCEPTUAL' : 'PERMUTATION SEARCH / CONCEPTUAL'}</span></div>}
+  <div class="research-card-body"><p class="eyebrow">{project.status}</p><h3><a href={projectUrl(project)}>{project.shortTitle}</a></h3><p>{preview ? (bayesian ? 'Graph theory, conditional probability, and probabilistic reasoning.' : 'An experimental adaptation of the existing Ant Nesting Algorithm to route optimization.') : project.summary}</p><a class="text-link" href={projectUrl(project)} aria-label={`Explore ${project.shortTitle}`}>{preview ? 'Read exploration' : 'Explore the study'} <Arrow /></a></div>
+</article>

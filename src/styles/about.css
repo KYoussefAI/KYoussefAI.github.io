@@ -1,0 +1,20 @@
+.about-first-screen { min-height: calc(100svh - 96px); padding-block: clamp(24px, 4.5svh, 52px); display: flex; flex-direction: column; justify-content: center; gap: clamp(24px, 4.5svh, 48px); }
+.about-intro h1 { font-size: clamp(38px, min(4.4vw, 7.2svh), 65px); margin-top: 12px; }
+.about-intro > p:last-child { font-size: 16px; margin-top: 12px; }
+.about-intro .about-location { margin-left: 12px; }
+.about-first-screen .about-page-grid { grid-template-columns: clamp(240px, 39svh, 360px) minmax(0, 1fr); gap: clamp(36px, 6vw, 90px); align-items: center; margin: 0; }
+.about-first-screen .portrait-wrap { max-width: 100%; }
+.about-first-screen .portrait-note { margin-top: 12px; }
+.about-first-screen .about-copy h2 { font-size: clamp(28px, min(3vw, 4.7svh), 40px); margin-bottom: 16px; }
+.about-first-screen .about-copy p { font-size: 15px; line-height: 1.75; margin-top: 12px; max-width: 710px; }
+.about-first-screen .about-copy .lead { font-size: 17px; }
+.about-first-screen .about-copy .eyebrow { font-size: 11px; margin: 0 0 12px; }
+.about-first-screen .about-copy .text-link { margin-top: 14px; }
+@media (max-width: 760px) {
+  .about-first-screen { min-height: calc(100svh - 85px); padding-block: 32px; gap: 32px; }
+  .about-intro h1 { font-size: clamp(36px, 8.5vw, 58px); }
+  .about-intro .about-location { display: block; margin-left: 0; }
+  .about-first-screen .about-page-grid { grid-template-columns: 1fr; gap: 30px; }
+  .about-first-screen .portrait-wrap { width: min(100%, 38svh, 310px); }
+  .about-first-screen .about-copy h2 { font-size: 32px; }
+}

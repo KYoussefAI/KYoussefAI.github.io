@@ -1,0 +1,50 @@
+<script>
+  let cleanup: (() => void) | undefined;
+  function initializeHomeSlides() {
+    cleanup?.();
+    if (!document.documentElement.classList.contains('home-page')) return;
+    const abort = new AbortController();
+    const { signal } = abort;
+    const desktop = matchMedia('(min-width: 1024px) and (min-height: 650px)');
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const slides = [...document.querySelectorAll<HTMLElement>('.personal-hero, .home-screen')];
+    let lastWheel = 0;
+    let accumulated = 0;
+    let consumed = false;
+    let settling = false;
+    let releaseTimer: ReturnType<typeof setTimeout>;
+    cleanup = () => { abort.abort(); clearTimeout(releaseTimer); };
+    const release = () => { settling = false; clearTimeout(releaseTimer); };
+    window.addEventListener('scrollend', release, { signal });
+    window.addEventListener('pageshow', release, { signal });
+  
+    // CSS owns the snap positions. Translate one desktop wheel gesture to one slide;
+    // a modest gesture otherwise returns to its starting slide on taller screens.
+    window.addEventListener('wheel', event => {
+      if (!desktop.matches || reduced.matches || event.ctrlKey || document.documentElement.classList.contains('route-restoring') ||
+        document.documentElement.classList.contains('menu-open') ||
+        Math.abs(event.deltaX) >= Math.abs(event.deltaY) ||
+        slides.some(slide => slide.offsetHeight > innerHeight + 2)) return;
+      event.preventDefault();
+      const now = performance.now();
+      if (now - lastWheel > 180) { consumed = false; accumulated = 0; }
+      lastWheel = now;
+      if (settling || consumed) return;
+      accumulated += event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
+      if (Math.abs(accumulated) < 24) return;
+      consumed = true;
+      const positions = slides.map(slide => slide.getBoundingClientRect().top + scrollY);
+      const current = positions.reduce((best, position, index) =>
+        Math.abs(position - scrollY) < Math.abs(positions[best] - scrollY) ? index : best, 0);
+      const next = Math.max(0, Math.min(slides.length - 1, current + Math.sign(accumulated)));
+      if (next === current) return;
+      settling = true;
+      window.scrollTo({ top: positions[next], behavior: 'smooth' });
+      // Fallback for browsers without scrollend; wheel inertia still shares one gesture.
+      releaseTimer = setTimeout(release, 1000);
+    }, { passive: false, signal });
+  }
+  document.addEventListener('astro:before-swap', () => cleanup?.());
+  document.addEventListener('astro:page-load', initializeHomeSlides);
+  initializeHomeSlides();
+</script>

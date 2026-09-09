@@ -1,0 +1,15 @@
+---
+import type { Project } from '../data/projects';
+import { projectUrl } from '../data/projects';
+import Arrow from './Arrow.astro';
+import Pipeline from './Pipeline.astro';
+interface Props { project: Project; featured?: boolean; editorial?: boolean; preview?: boolean }
+const { project, featured = false, editorial = false, preview = false } = Astro.props;
+---
+<article class:list={['project-card', { 'flagship': featured, editorial, 'project-preview': preview }]}>
+  <div class="card-meta"><span class="eyebrow">{project.number} / {project.category}</span><span class:list={['project-status', { active: project.status === 'In progress' }]}>{project.status === 'In progress' && <span class="status-dot"></span>}{project.status}</span></div>
+  <div class="card-copy"><h3><a href={projectUrl(project)}>{project.shortTitle}</a></h3><p>{project.summary}</p></div>
+  {!preview && (featured || editorial) && <Pipeline project={project} compact />}
+  {!preview && !featured && !editorial && <div class="mini-flow" aria-hidden="true">{project.stages.filter((_, i) => i !== 0 || project.number !== '02').map((stage) => <span>{stage.name}</span>)}</div>}
+  <div class="card-bottom"><ul class="tags" aria-label="Technologies">{(preview ? project.tags.slice(0, 4) : project.tags).map(tag => <li>{tag}</li>)}</ul><a class="text-link" href={projectUrl(project)} aria-label={`Read case study: ${project.shortTitle}`}>Explore project <Arrow /></a></div>
+</article>

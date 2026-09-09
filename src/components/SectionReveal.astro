@@ -1,0 +1,49 @@
+<script>
+  let cleanup: (() => void) | undefined;
+  function initializeReveals() {
+    cleanup?.();
+    const abort = new AbortController();
+    const { signal } = abort;
+    // Content is visible by default, including when scripts or motion are disabled.
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sections = [...document.querySelectorAll<HTMLElement>('main > section, main > header, [data-reveal]')]
+      .filter(section => !section.querySelector('[data-reveal]'));
+    if (!motion.matches && 'IntersectionObserver' in window) {
+      const reveal = (section: HTMLElement) => {
+        section.classList.remove('reveal-pending');
+        observer.unobserve(section);
+      };
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) reveal(entry.target as HTMLElement); });
+      }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
+      cleanup = () => { abort.abort(); observer.disconnect(); };
+      sections.forEach(section => {
+        const box = section.getBoundingClientRect();
+        if (document.documentElement.hasAttribute('data-astro-transition') && box.top < innerHeight && box.bottom > 0) return;
+        section.classList.add('section-reveal', 'reveal-pending');
+        observer.observe(section);
+      });
+      document.addEventListener('focusin', event => {
+        if (event.target instanceof Element) {
+          const section = event.target.closest<HTMLElement>('.reveal-pending');
+          if (section) reveal(section);
+        }
+      }, { signal });
+      motion.addEventListener('change', () => {
+        if (motion.matches) { sections.forEach(reveal); observer.disconnect(); }
+      }, { signal });
+    }
+  }
+  document.addEventListener('astro:before-swap', () => cleanup?.());
+  document.addEventListener('astro:page-load', initializeReveals);
+  initializeReveals();
+</script>
+<style is:global>
+  @media (prefers-reduced-motion: no-preference) {
+    .section-reveal { transition: opacity 440ms ease, transform 440ms ease; }
+    .reveal-pending { opacity: 0; transform: translateY(12px); }
+  }
+  @media print {
+    .reveal-pending { opacity: 1 !important; transform: none !important; }
+  }
+</style>

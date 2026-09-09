@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Arrow from '../components/Arrow.astro';
+import { engineeringProjects, appliedProjects, projectUrl } from '../data/projects';
+---
+<BaseLayout title="Work" description="Data engineering projects by Youssef Khaloufi: layered architecture, streaming systems, and SQL analytics, with selected applied AI work.">
+  <PageIntro number="02" label="WORK" title="Engineering through" accent="practice" description="From a first personal pipeline to streaming systems and analytical architecture. Each project explores a different set of decisions behind useful data." />
+  <section class="work-collection wrap" aria-labelledby="engineering-title"><div class="section-label"><h2 id="engineering-title">DATA ENGINEERING / SELECTED PROJECTS</h2><span class="section-rule"></span></div><div class="work-projects">{engineeringProjects.map((project, i) => <ProjectCard project={project} featured={i === 0} editorial={i !== 0} />)}</div></section>
+  <section class="section wrap" aria-labelledby="applied-title"><div class="section-heading"><div><p class="eyebrow">A COMPLEMENTARY APPLIED AI BACKGROUND</p><h2 id="applied-title">From models<br /><span class="muted-heading">to applications.</span></h2></div><p>Two academic projects connecting model outputs<br class="desktop-break" /> with validation and application design.</p></div><div class="applied-grid">{appliedProjects.map(project => <article class="applied-project"><div class="card-meta"><span class="eyebrow">{project.category}</span></div><h3><a href={projectUrl(project)}>{project.shortTitle}</a></h3><p>{project.summary}</p>{project.attribution && <p class="applied-credit">{project.attribution}</p>}<ul class="tags" aria-label="Technologies">{project.tags.map(tag => <li>{tag}</li>)}</ul><a class="text-link" href={projectUrl(project)}>Explore project <Arrow /></a></article>)}</div></section>
+  <aside class="page-crosslink wrap"><p>For the mathematical and experimental foundations.</p><a class="text-link" href="/research/">Research & explorations <Arrow /></a></aside>
+</BaseLayout>

@@ -1,0 +1,29 @@
+---
+import { site } from '../data/site';
+import { navigation, currentArea } from '../data/navigation';
+import Arrow from './Arrow.astro';
+const active = currentArea(Astro.url.pathname);
+---
+<header class="site-header wrap">
+  <a class="wordmark" href="/" aria-label="Youssef Khaloufi, home"><span class="monogram">yk<span>.</span></span><span class="wordmark-name">YOUSSEF KHALOUFI</span></a>
+  <div class="header-actions">
+    {active && <span class="current-location">{active.label} <span>/ {active.number}</span></span>}
+    <button class="menu-toggle" type="button" aria-haspopup="dialog" aria-controls="site-menu" aria-expanded="false" hidden>Menu <span aria-hidden="true">+</span></button>
+    <noscript><a class="menu-fallback-link" href="#site-navigation">Explore ↓</a></noscript>
+  </div>
+</header>
+<dialog id="site-menu" class="site-menu" aria-labelledby="menu-title">
+  <div class="menu-shell wrap">
+    <div class="menu-header"><p id="menu-title" class="eyebrow">NAVIGATION <span>/ INDEX</span></p><button class="menu-close" type="button" aria-label="Close" autofocus><span aria-hidden="true">×</span></button></div>
+    <div class="menu-body">
+      <nav class="menu-navigation" aria-label="Main navigation">
+        {navigation.map((item, i) => <a class="menu-link" href={item.href} aria-current={active?.href === item.href ? (Astro.url.pathname.replace(/\/+$/, '') === item.href.replace(/\/+$/, '') ? 'page' : 'location') : undefined} style={`--order:${i}`}><span class="menu-number">{item.number}</span><span class="menu-link-copy"><span class="menu-name">{item.label}</span><span class="menu-context">{item.context}</span></span><span class="menu-marker" aria-hidden="true">{active?.href === item.href ? '●' : '↗'}</span></a>)}
+      </nav>
+    </div>
+    <div class="menu-bottom"><span class="eyebrow">{site.location}</span><div class="social-links"><a href={site.github} target="_blank" rel="noopener noreferrer">GitHub <Arrow diagonal /></a><a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <Arrow diagonal /></a><a href={`mailto:${site.email}`}>Email <Arrow diagonal /></a></div></div>
+  </div>
+</dialog>
+
+<script>
+  import '../scripts/navigation';
+</script>

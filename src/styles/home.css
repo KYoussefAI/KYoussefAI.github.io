@@ -1,0 +1,842 @@
+/* The document is the scroll container. Only Home receives desktop slide snapping. */
+
+.home-page .site-header {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  z-index: 2;
+}
+
+/* =========================================================
+   HERO / SCREEN 1
+   ========================================================= */
+
+.personal-hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(22px, 3svh, 42px);
+  padding-block:
+    calc(96px + clamp(14px, 2svh, 26px))
+    clamp(20px, 2.8svh, 36px);
+}
+
+.hero-profile-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(0, 1.55fr)
+    minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(28px, 3vw, 48px);
+}
+
+/* =========================================================
+   LEFT COLUMN — PORTRAIT + BIO
+   ========================================================= */
+
+.personal-bio {
+  min-width: 0;
+}
+
+.personal-bio .portrait-wrap {
+  width: clamp(132px, 18svh, 184px);
+  max-width: 100%;
+}
+
+.personal-bio .portrait {
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid #64715e;
+}
+
+.personal-bio .portrait::before {
+  content: none;
+}
+
+.personal-bio > p {
+  font-size: clamp(16px, 1.12vw, 18px);
+  line-height: 1.62;
+  margin-top: 19px;
+  max-width: 360px;
+  color: #c7cfc1;
+  letter-spacing: -0.01em;
+}
+
+.personal-bio > p + p {
+  margin-top: 17px;
+}
+
+/* =========================================================
+   MIDDLE COLUMN — IDENTITY
+   ========================================================= */
+
+.personal-identity {
+  text-align: left;
+  min-width: 0;
+}
+
+.personal-location {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.personal-identity h1 {
+  font-size: clamp(48px, min(5.5vw, 8.8svh), 84px);
+  text-transform: uppercase;
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+
+.personal-identity h1 > span {
+  display: block;
+}
+
+.personal-status {
+  font-size: 11px;
+  margin-top: clamp(18px, 2.3svh, 26px);
+  letter-spacing: 0.13em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.personal-title {
+  font-size: clamp(25px, 2vw, 31px);
+  color: var(--accent);
+  line-height: 1.18;
+  margin-top: 10px;
+  max-width: 540px;
+  letter-spacing: -0.035em;
+}
+
+.personal-academic {
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.55;
+  margin-top: 18px;
+  color: #b8c1b2;
+}
+
+.personal-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: clamp(17px, 2.3svh, 26px);
+}
+
+.personal-actions .text-link {
+  padding-inline: 12px;
+}
+
+/* =========================================================
+   RIGHT COLUMN — HOME INDEX
+   ========================================================= */
+
+.home-index {
+  min-width: 0;
+}
+
+.home-index h2.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.home-index-list {
+  list-style: none;
+  padding: 0;
+  margin: 13px 0 0;
+}
+
+.home-index-list li {
+  margin: 0;
+}
+
+.home-index-list a {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) 16px;
+  gap: 12px;
+  align-items: center;
+
+  min-height: 68px;
+  padding: 14px 0;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.home-index-number {
+  font: 10px var(--mono);
+  color: var(--muted);
+  align-self: start;
+  padding-top: 5px;
+}
+
+.home-index-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.home-index-name {
+  font-size: 18px;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  line-height: 1.25;
+
+  transition:
+    transform 200ms ease,
+    color 200ms ease;
+}
+
+.home-index-context {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.home-index-arrow {
+  font-size: 15px;
+  line-height: 1;
+  color: var(--accent);
+  transition: transform 200ms ease;
+}
+
+.home-index-list a:hover .home-index-name {
+  transform: translateX(4px);
+  color: var(--accent);
+}
+
+.home-index-list a:hover .home-index-arrow {
+  transform: translateY(3px);
+}
+
+/* CONNECT */
+
+.home-index-connect {
+  margin-top: 14px;
+}
+
+.home-index-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin-top: 7px;
+}
+
+.home-index-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  min-height: 42px;
+
+  font-size: 12px;
+}
+
+.home-index-socials a:hover {
+  color: var(--accent);
+}
+
+.home-index-socials svg {
+  width: 12px;
+  height: 12px;
+  color: var(--accent);
+}
+
+/* Hide global menu on desktop Home because Home has its own visible index. */
+
+@media (min-width: 1101px) {
+  .home-page .site-header .menu-toggle,
+  .home-page .site-header .menu-fallback-link {
+    display: none;
+  }
+}
+
+/* =========================================================
+   TABLET HOME HERO
+   ========================================================= */
+
+@media (max-width: 1100px) and (min-width: 761px) {
+  .hero-profile-grid {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1.4fr);
+    gap: 36px;
+  }
+
+  .home-index {
+    grid-column: 1 / -1;
+
+    display: grid;
+    grid-template-columns:
+      minmax(0, 2fr)
+      minmax(0, 1fr);
+
+    gap: 32px;
+  }
+
+  .home-index-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+  }
+
+  .home-index-connect {
+    margin-top: 0;
+  }
+}
+
+/* =========================================================
+   CAREER TIMELINE
+   ========================================================= */
+
+.career-timeline {
+  width: 100%;
+}
+
+.timeline-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding-bottom: 16px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.timeline-label > span {
+  color: var(--accent);
+}
+
+.career-track {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 3fr)
+    minmax(0, 1fr);
+
+  margin-top: 19px;
+}
+
+.career-timeline ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.career-timeline li {
+  min-width: 0;
+}
+
+.career-period {
+  font: 11px var(--mono);
+  letter-spacing: 0.065em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.career-connector {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  height: 24px;
+  margin-block: 4px;
+}
+
+.career-connector::after {
+  content: "";
+  height: 1px;
+  background: var(--line);
+  flex: 1;
+}
+
+.career-connector > span:first-child {
+  height: 7px;
+  width: 7px;
+
+  border: 1px solid #819575;
+  border-radius: 50%;
+}
+
+.career-arrow {
+  position: absolute;
+  right: 18px;
+
+  background: var(--bg);
+
+  padding-inline: 5px;
+
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.career-timeline h2 {
+  font-size: clamp(19px, 1.7vw, 25px);
+  letter-spacing: -0.03em;
+  padding-right: 18px;
+}
+
+.career-timeline li > p,
+.career-direction > p {
+  font-size: 13px;
+  line-height: 1.6;
+
+  margin-top: 7px;
+  max-width: 255px;
+  padding-right: 24px;
+}
+
+/* CURRENT MASTER */
+
+.career-current .career-period,
+.career-current h2,
+.career-current p {
+  color: var(--accent);
+}
+
+.career-current .career-connector > span:first-child {
+  background: var(--accent);
+  border-color: var(--accent);
+
+  box-shadow: 0 0 0 4px #b8cfa01a;
+}
+
+.career-current .career-connector::after {
+  background: transparent;
+  border-top: 1px dashed #64715e;
+}
+
+.career-current h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  text-transform: uppercase;
+}
+
+.career-badge {
+  font: 10px var(--mono);
+  letter-spacing: 0.04em;
+
+  border: 1px solid #4b5d44;
+
+  padding: 3px 6px;
+
+  background: #263121;
+}
+
+/* NEXT DIRECTION */
+
+.career-direction h2 {
+  color: #b3bcae;
+}
+
+.career-direction .career-connector > span:first-child {
+  border: 1px dashed #819575;
+  border-radius: 0;
+
+  transform: rotate(45deg);
+}
+
+.career-direction .career-connector::after {
+  display: none;
+}
+
+/* =========================================================
+   HOME SLIDES
+   ========================================================= */
+
+.home-screen {
+  min-height: 100svh;
+
+  padding-block: clamp(32px, 6svh, 80px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  border-top: 1px solid var(--line);
+}
+
+.home-screen .section-heading {
+  margin: clamp(20px, 3.5svh, 36px) 0;
+}
+
+.home-screen .section-heading h2 {
+  font-size: clamp(32px, min(3.4vw, 5.8svh), 48px);
+}
+
+/* =========================================================
+   ENGINEERING WORK
+   ========================================================= */
+
+.home-work .project-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.home-work .project-preview {
+  grid-column: auto;
+
+  padding: clamp(20px, 2vw, 28px);
+
+  min-height: clamp(340px, 47svh, 430px);
+}
+
+.home-work .card-meta {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.home-work .card-meta .eyebrow {
+  font-size: 10px;
+}
+
+.home-work .card-copy {
+  margin-top: 22px;
+}
+
+.home-work .card-copy h3 {
+  font-size: clamp(25px, 2.1vw, 31px);
+}
+
+.home-work .card-copy p {
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.home-work .card-bottom {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+
+  padding-top: 22px;
+}
+
+.home-work .tags li {
+  font-size: 10px;
+}
+
+/* =========================================================
+   CONTACT SLIDE
+   ========================================================= */
+
+.home-page .home-contact {
+  min-height: 100svh;
+  margin-top: 0;
+}
+
+.home-contact .footer-main {
+  margin-top: clamp(32px, 8svh, 90px);
+  border-top: 1px solid var(--line);
+}
+
+.home-contact .footer-identity p {
+  max-width: 430px;
+}
+
+.home-contact-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.home-contact h2 {
+  font-size: clamp(42px, 6vw, 80px);
+  margin-top: 20px;
+}
+
+/* =========================================================
+   DESKTOP SLIDE SNAP
+   ========================================================= */
+
+@media (min-width: 1024px) and (min-height: 650px) {
+  html.home-page {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    scroll-padding-block: 0;
+  }
+
+  .home-page .personal-hero,
+  .home-page .home-screen {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  html.home-page.menu-open {
+    scroll-snap-type: none;
+  }
+}
+
+/* =========================================================
+   SMALL DESKTOP / TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+  .hero-profile-grid {
+    grid-template-columns:
+      minmax(0, 0.9fr)
+      minmax(0, 1.4fr);
+
+    gap: 35px;
+  }
+
+  .personal-bio > p {
+    font-size: 15px;
+    max-width: 340px;
+  }
+
+  .personal-identity h1 {
+    font-size: clamp(44px, 6.3vw, 64px);
+  }
+
+  .personal-title {
+    font-size: clamp(23px, 2.6vw, 28px);
+  }
+
+  .home-work .project-grid {
+    gap: 12px;
+  }
+
+  .home-work .project-preview {
+    padding: 20px;
+  }
+
+  .home-work .card-copy h3 {
+    font-size: 24px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 760px) {
+  html.home-page {
+    scroll-snap-type: none;
+  }
+
+  .personal-hero {
+    min-height: auto;
+    padding-block: 117px 32px;
+    gap: 36px;
+  }
+
+  .hero-profile-grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .hero-profile-grid .personal-identity {
+    order: -1;
+  }
+
+  .personal-identity {
+    text-align: left;
+  }
+
+  .personal-location,
+  .personal-actions {
+    justify-content: flex-start;
+  }
+
+  .personal-identity h1 {
+    font-size: clamp(42px, 10.7vw, 76px);
+  }
+
+  .personal-status {
+    margin-top: 20px;
+  }
+
+  .personal-title {
+    font-size: 23px;
+    max-width: 100%;
+  }
+
+  .personal-academic {
+    font-size: 14px;
+    margin-top: 14px;
+  }
+
+  .personal-actions {
+    gap: 10px;
+  }
+
+  .personal-actions .button {
+    padding-inline: 13px;
+    gap: 12px;
+  }
+
+  .personal-actions .text-link {
+    padding-left: 0;
+  }
+
+  /* Portrait + bio */
+
+  .personal-bio .portrait-wrap {
+    width: min(42vw, 180px);
+  }
+
+  .personal-bio > p {
+    font-size: 16px;
+    line-height: 1.65;
+    max-width: 38ch;
+  }
+
+  .personal-bio > p + p {
+    margin-top: 16px;
+  }
+
+  /* Home index */
+
+  .home-index {
+    grid-column: auto;
+  }
+
+  .home-index-list a {
+    min-height: 66px;
+    padding-block: 13px;
+  }
+
+  .home-index-name {
+    font-size: 18px;
+  }
+
+  .home-index-context {
+    font-size: 11px;
+  }
+
+  .home-index-connect {
+    margin-top: 14px;
+  }
+
+  /* Timeline */
+
+  .timeline-label {
+    font-size: 10px;
+  }
+
+  .timeline-label > span {
+    display: none;
+  }
+
+  .career-track {
+    grid-template-columns: 1fr;
+  }
+
+  .career-timeline ol {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .career-timeline li {
+    position: relative;
+
+    padding: 0 0 24px 25px;
+
+    border-left: 1px solid var(--line);
+
+    margin-left: 4px;
+  }
+
+  .career-timeline li:last-child {
+    border-left: 1px dashed #64715e;
+    padding-bottom: 28px;
+  }
+
+  .career-direction {
+    position: relative;
+
+    padding-left: 25px;
+
+    margin-left: 4px;
+  }
+
+  .career-connector {
+    position: absolute;
+    top: 0;
+    left: -4px;
+
+    margin: 0;
+    height: 17px;
+  }
+
+  .career-connector::after,
+  .career-arrow {
+    display: none;
+  }
+
+  .career-timeline
+    li:not(.career-current)
+    .career-connector
+    > span:first-child {
+    background: var(--bg);
+  }
+
+  .career-timeline h2 {
+    margin-top: 6px;
+    font-size: 21px;
+  }
+
+  .career-timeline li > p {
+    max-width: 100%;
+    padding-right: 0;
+    margin-top: 4px;
+  }
+
+  /* Other Home screens */
+
+  .home-screen {
+    min-height: auto;
+    padding-block: 48px;
+  }
+
+  .home-work .project-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .home-work .project-preview {
+    min-height: 0;
+    padding: 24px;
+  }
+
+  .home-work .card-copy h3 {
+    font-size: 28px;
+  }
+
+  .home-page .home-contact {
+    min-height: auto;
+  }
+
+  .home-contact-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html.home-page {
+    scroll-snap-type: y proximity;
+    scroll-behavior: auto;
+  }
+
+  .home-index-list a:hover .home-index-name,
+  .home-index-list a:hover .home-index-arrow {
+    transform: none;
+  }
+}

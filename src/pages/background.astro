@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import Arrow from '../components/Arrow.astro';
+import { education, skillGroups } from '../data/site';
+---
+<BaseLayout title="Background" description="Education at FST Tangier and technical foundations in data engineering, distributed processing, and applied AI.">
+  <PageIntro number="05" label="BACKGROUND" title="A statistical foundation." accent="An engineering direction" description="Education and practical work inform each other. My focus is on Data Engineering and distributed systems, supported by a background in statistics and applied AI." />
+  <section class="background-section wrap" aria-labelledby="education-title"><div class="section-label"><h2 id="education-title">EDUCATION</h2><span class="section-rule"></span></div><div class="background-grid"><div><h3 class="institution-title">Faculty of Science<br />and Technology<br /><span class="muted-heading">Tangier.</span></h3></div><div class="education-list">{education.map((item, i) => <article class="education-item"><div class="education-dot" data-current={i === 0}></div><div class="education-top"><span class="eyebrow">{item.degree}</span><span class="dates">{item.dates}</span></div><h3>{item.subject}</h3><p>{item.note}</p></article>)}</div></div></section>
+  <section class="section wrap" aria-labelledby="skills-title"><div class="section-label"><span>TECHNICAL BACKGROUND</span><span class="section-rule"></span></div><div class="section-heading"><h2 id="skills-title">Tools with a purpose.</h2><p>Technologies and concepts used in my projects<br class="desktop-break" /> and academic work, grouped by what they help me do.</p></div><div class="skills-grid">{skillGroups.map(group => <article class="skill-group"><span class="eyebrow accent">{group.number}</span><h3>{group.title}</h3><p>{group.description}</p><ul class="skill-list">{group.skills.map(skill => <li>{skill}</li>)}</ul></article>)}</div></section>
+  <aside class="page-crosslink wrap"><p>See how these foundations translate into practical decisions.</p><a class="text-link" href="/work/">Explore the work <Arrow /></a></aside>
+</BaseLayout>

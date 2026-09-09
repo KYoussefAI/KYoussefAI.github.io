@@ -1,0 +1,28 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import Pipeline from '../components/Pipeline.astro';
+import { type Project, researchProjects, workProjects, projectArea, projectUrl, repositoryUrl } from '../data/projects';
+interface Props { project: Project }
+const { project } = Astro.props;
+const repo = repositoryUrl(project);
+const area = projectArea(project);
+const collection = area === 'research' ? researchProjects : workProjects;
+const index = collection.findIndex(p => p.slug === project.slug);
+const next = collection[(index + 1) % collection.length];
+const previous = collection[(index - 1 + collection.length) % collection.length];
+---
+<BaseLayout title={project.title} description={project.summary}>
+  <article class="case-study wrap">
+    <a class="back-link" href={`/${area}/`}><span aria-hidden="true">←</span> {area === 'research' ? 'All research' : 'All work'}</a>
+    <header class="case-header"><div class="card-meta"><span class="eyebrow">{project.number} / {project.category}</span><span class:list={['project-status', { active: project.status === 'In progress' }]}>{project.status}</span></div><h1>{project.title}<span class="accent">.</span></h1><p class="case-summary">{project.summary}</p>{project.attribution && <p class="case-credit">{project.attribution}</p>}<div class="case-header-bottom"><ul class="tags" aria-label="Technologies">{project.tags.map(tag => <li>{tag}</li>)}</ul>{repo && <a class="text-link" href={repo} target="_blank" rel="noopener noreferrer">View repository <Arrow diagonal /></a>}</div></header>
+    <div class="case-question"><span class="eyebrow">THE QUESTION</span><p>{project.question}</p></div>
+    <Pipeline project={project} />
+    <div class="case-body"><aside class="case-aside"><p class="eyebrow">IN THIS CASE STUDY</p><nav aria-label="Case study sections">{project.sections.map((section, i) => <a href={`#section-${i + 1}`}>{String(i + 1).padStart(2, '0')} <span>{section.title}</span></a>)}</nav>{project.metric && <div class="metric"><strong>{project.metric.value}</strong><span>{project.metric.label}</span><p>{project.metric.note}</p></div>}</aside><div class="case-content">{project.sections.map((section, i) => <section id={`section-${i + 1}`}><p class="eyebrow">0{i + 1}</p><h2>{section.title}</h2>{section.paragraphs?.map(paragraph => <p>{paragraph}</p>)}{section.bullets && <ul>{section.bullets.map(bullet => <li>{bullet}</li>)}</ul>}</section>)}<aside class="takeaway"><span class="eyebrow">WHAT I TAKE FORWARD</span><p>{project.takeaway}</p></aside>{repo && <section class="source-notes"><h2>Explore the implementation</h2><p>The public repository provides the code, documentation, and evaluation context behind this case study.</p><ul>{project.sourcePaths?.map(path => <li><a href={`${repo}/tree/${project.commit}/${path}`} target="_blank" rel="noopener noreferrer">{path} <Arrow diagonal /></a></li>)}</ul></section>}</div></div>
+    <nav class="project-pagination" aria-label="More case studies">
+      {collection.length > 2 && <a href={projectUrl(previous)}><span class="eyebrow">← PREVIOUS PROJECT</span><span class="pagination-title">{previous.shortTitle}</span></a>}
+      <a href={projectUrl(next)}><span class="eyebrow">{area === 'research' ? 'NEXT EXPLORATION' : 'NEXT PROJECT'} →</span><span class="pagination-title">{next.shortTitle}</span></a>
+      <a class="all-projects-link" href={`/${area}/`}>← {area === 'research' ? 'All research & explorations' : 'All work'}</a>
+    </nav>
+  </article>
+</BaseLayout>

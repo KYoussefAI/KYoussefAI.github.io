@@ -1,0 +1,22 @@
+---
+import { careerTimeline } from '../data/site';
+---
+<div class="career-timeline" data-reveal>
+  <p class="eyebrow timeline-label" id="career-title">THE PATH SO FAR <span>FOUNDATIONS → SYSTEMS</span></p>
+  <div class="career-track">
+  <ol aria-labelledby="career-title">
+    {careerTimeline.map(stage => <li class:list={{ 'career-current': stage.current }} aria-current={stage.current ? 'step' : undefined}>
+      <span class="career-period">{stage.period}</span>
+      <span class="career-connector" aria-hidden="true"><span></span><span class="career-arrow">→</span></span>
+      <h2>{stage.title} {stage.current && <span class="career-badge">Current</span>}</h2>
+      <p>{stage.detail}</p>
+    </li>)}
+  </ol>
+  <aside class="career-direction" aria-label="Chosen future career direction">
+    <span class="career-period">Next direction</span>
+    <span class="career-connector" aria-hidden="true"><span></span></span>
+    <h2>Data Engineering</h2>
+    <p>Distributed Data Systems</p>
+  </aside>
+  </div>
+</div>

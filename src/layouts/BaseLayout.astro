@@ -1,0 +1,32 @@
+---
+import SEO from '../components/SEO.astro';
+import { ClientRouter } from 'astro:transitions';
+import Arrow from '../components/Arrow.astro';
+import SiteMenu from '../components/SiteMenu.astro';
+import SectionReveal from '../components/SectionReveal.astro';
+import { navigation } from '../data/navigation';
+import { site } from '../data/site';
+import manropeFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '../styles/global.css';
+import '../styles/structure.css';
+import '../styles/navigation.css';
+interface Props { title?: string; description?: string; noindex?: boolean }
+const isHome = Astro.url.pathname === '/';
+---
+<!doctype html>
+<html lang="en" class:list={{ 'home-page': isHome }}>
+  <head><SEO {...Astro.props} /><ClientRouter fallback="animate" /><link rel="preload" href={manropeFont} as="font" type="font/woff2" crossorigin /><noscript><style is:inline>html { scroll-behavior: auto !important; } @view-transition { navigation: none; }</style></noscript></head>
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
+    {site.opportunity.enabled && <aside class="opportunity">{site.opportunity.text}</aside>}
+    <SiteMenu />
+    <main id="main"><slot /></main>
+    <footer id="contact" class:list={['site-footer wrap', { 'home-screen home-contact': isHome }]}>
+      <slot name="contact-intro" />
+      <div class="footer-main"><div class="footer-identity"><a href="/">{site.name}</a><p>{isHome ? site.academicStatus : site.title}</p></div><div class="social-links"><a href={site.github} target="_blank" rel="noopener noreferrer">GitHub <Arrow diagonal /></a><a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <Arrow diagonal /></a><a href={`mailto:${site.email}`}>Email <Arrow diagonal /></a></div></div>
+      <div class="footer-bottom"><span>© {new Date().getFullYear()} · Tangier, Morocco</span><nav id="site-navigation" aria-label="Footer navigation">{navigation.map(item => <a href={item.href}>{item.label}</a>)}</nav><a href="#top">Back to top <span aria-hidden="true">↑</span></a></div>
+    </footer>
+    <SectionReveal />
+  </body>
+</html>

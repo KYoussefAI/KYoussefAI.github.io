@@ -1,0 +1,10 @@
+---
+import type { Project } from '../data/projects';
+interface Props { project: Project; compact?: boolean }
+const { project, compact = false } = Astro.props;
+---
+<figure class:list={['pipeline', { compact }]}>
+  <figcaption class="eyebrow">{project.flowLabel}</figcaption>
+  <ol class="pipeline-stages">{project.stages.map((stage, i) => <li><span class="stage-index">{String(i + 1).padStart(2, '0')}</span><strong>{stage.name}</strong><span>{stage.detail}</span></li>)}</ol>
+  {!compact && project.flowNote && <p class="pipeline-note">{project.flowNote}</p>}
+</figure>

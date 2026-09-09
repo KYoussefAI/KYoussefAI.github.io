@@ -1,0 +1,68 @@
+/* Compact editorial overlay. These styles only address navigation and transitions. */
+.site-menu { background: transparent; padding: 24px; transition: none; scroll-padding-block: 24px; }
+.site-menu[open] { display: grid; place-items: center; }
+.site-menu::backdrop { background: #080b0ad9; backdrop-filter: blur(7px); }
+.site-menu.is-closing { opacity: 1; }
+.site-menu .menu-shell { width: min(960px, 100%); min-height: 0; max-height: calc(100dvh - 48px); overflow-y: auto; overscroll-behavior: contain; padding: 16px 38px; margin: 0; background: var(--bg); border: 1px solid var(--line); box-shadow: 0 24px 90px #0005; }
+.site-menu .menu-header { min-height: 64px; gap: 24px; top: -16px; }
+.site-menu .menu-header .eyebrow { font-size: 11px; }
+.site-menu .menu-header .eyebrow span { display: inline; color: var(--muted); }
+.site-menu .menu-close { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 0; border: 0; background: transparent; letter-spacing: 0; }
+.site-menu .menu-close > span { font-size: 30px; line-height: 1; font-weight: 300; }
+.site-menu .menu-close:hover { background: #b6cca70c; }
+.site-menu .menu-close:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; border-radius: 50%; }
+.site-menu .menu-body { display: block; padding: 12px 0 20px; flex: none; }
+.site-menu .menu-link { position: relative; grid-template-columns: 26px minmax(0, 1fr) 20px; gap: 18px; padding: 18px 0; min-height: 78px; border-top: 0; }
+.site-menu .menu-link::after { content: ''; position: absolute; inset: auto 0 -1px; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 280ms ease; }
+.site-menu .menu-link:hover::after, .site-menu .menu-link:focus-visible::after { transform: scaleX(1); }
+.site-menu .menu-link[aria-current]::after { transform: scaleX(.12); }
+.site-menu .menu-link[aria-current]:hover::after { transform: scaleX(1); }
+.site-menu .menu-link-copy { display: grid; grid-template-columns: 1fr 1.15fr; align-items: center; gap: 22px; }
+.site-menu .menu-name { font-size: clamp(28px, 3vw, 40px); text-transform: uppercase; line-height: 1.15; letter-spacing: -.035em; transition: transform 250ms ease; }
+.site-menu .menu-context { font-size: 13px; line-height: 1.5; }
+.site-menu .menu-number { align-self: center; margin: 0; font-size: 11px; }
+.site-menu .menu-marker { font-size: 20px; transition: transform 250ms ease; }
+.site-menu .menu-link:hover .menu-name, .site-menu .menu-link:hover .menu-marker { transform: translateX(3px); }
+.site-menu .menu-bottom { padding: 8px 0; border: 0; gap: 20px; }
+.site-menu .menu-bottom > .eyebrow { font-size: 10px; }
+.site-menu .social-links { gap: 25px; }
+.site-menu .social-links a { font-size: 13px; }
+@media (prefers-reduced-motion: no-preference) {
+  .site-menu[open] .menu-shell { animation: overlay-enter 320ms cubic-bezier(.2,.7,.2,1) both; }
+  .site-menu[open]::backdrop { animation: overlay-scrim-in 320ms ease both; }
+  .site-menu[open] .menu-link { animation: menu-enter 280ms ease both; animation-delay: calc(var(--order) * 18ms); }
+  .site-menu.is-closing .menu-shell { animation: overlay-leave 280ms ease both; }
+  .site-menu.is-closing::backdrop { animation: overlay-scrim-out 280ms ease both; }
+  .site-menu.is-closing .menu-link, .site-menu.is-navigating .menu-link { animation: none; }
+  .site-menu.is-navigating .menu-shell { animation: none; opacity: .65; transform: translateY(-6px); transition: opacity 280ms ease, transform 280ms ease; }
+}
+.site-menu.is-navigating .menu-navigation { pointer-events: none; }
+@keyframes overlay-enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes overlay-leave { to { opacity: 0; transform: translateY(-6px); } }
+@keyframes overlay-scrim-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes overlay-scrim-out { to { opacity: 0; } }
+@media (max-width: 760px) {
+  .site-menu { padding: 12px; }
+  .site-menu .menu-shell { max-height: calc(100dvh - 24px); padding: 10px 20px; }
+  .site-menu .menu-header { min-height: 54px; top: -10px; }
+  .site-menu .menu-link { padding: 15px 0; gap: 12px; grid-template-columns: 22px minmax(0,1fr) 18px; }
+  .site-menu .menu-link-copy { grid-template-columns: 1fr; gap: 5px; }
+  .site-menu .menu-name { font-size: 28px; }
+  .site-menu .menu-context { font-size: 11px; }
+  .site-menu .menu-bottom { align-items: flex-start; flex-direction: column; gap: 6px; }
+}
+/* ClientRouter uses a single root crossfade; no second cross-document transition. */
+@view-transition { navigation: none; }
+html.route-restoring { scroll-behavior: auto !important; scroll-snap-type: none !important; }
+::view-transition-group(root) { animation-duration: 280ms; }
+::view-transition-old(root) { animation: route-exit 240ms ease both; mix-blend-mode: normal; }
+::view-transition-new(root) { animation: route-enter 280ms ease both; mix-blend-mode: normal; }
+@keyframes route-exit { to { opacity: 0; transform: translateY(-4px); } }
+@keyframes route-enter { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+/* Astro's fallback lifecycle also works without browser View Transition support. */
+html[data-astro-transition-fallback="old"] body { animation: route-exit 140ms ease both; }
+html[data-astro-transition-fallback="new"] body { animation: route-enter 180ms ease both; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .site-menu .menu-link:hover .menu-name, .site-menu .menu-link:hover .menu-marker { transform: none; }
+}

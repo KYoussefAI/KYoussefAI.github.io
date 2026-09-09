@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import ResearchCard from '../components/ResearchCard.astro';
+import Arrow from '../components/Arrow.astro';
+import { researchProjects, appliedProjects, projectUrl } from '../data/projects';
+---
+<BaseLayout title="Research & Engineering Explorations" description="Academic and experimental work in Bayesian networks and permutation-based optimization, with connections to applied AI projects.">
+  <PageIntro number="03" label="RESEARCH & ENGINEERING EXPLORATIONS" title="Explore a question." accent="Understand the method" description="Academic and experimental work in probabilistic reasoning and optimization. These studies form part of the foundation behind my approach to data and engineering." />
+  <section class="research-collection wrap" aria-labelledby="studies-title"><div class="section-label"><h2 id="studies-title">ACADEMIC & EXPERIMENTAL WORK</h2><span class="section-rule"></span></div><div class="research-grid">{researchProjects.map(project => <ResearchCard project={project} />)}</div></section>
+  <section class="research-context wrap" aria-labelledby="context-title"><div><p class="eyebrow">CONNECTIONS TO APPLIED WORK</p><h2 id="context-title">Methods meet<br /><span class="muted-heading">implementation.</span></h2></div><div><p>The same attention to assumptions and evaluation extends to my academic work in retrieval-augmented generation and ECG classification. Those application-focused case studies live in Work.</p><ul>{appliedProjects.map(project => <li><a class="text-link" href={projectUrl(project)}>{project.shortTitle} <Arrow /></a></li>)}</ul><p class="research-scope">The studies here are a Bachelor’s final-year project and coursework-related experiments; they are not presented as peer-reviewed publications.</p></div></section>
+</BaseLayout>

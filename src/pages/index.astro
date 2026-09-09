@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import CareerTimeline from '../components/CareerTimeline.astro';
+import Portrait from '../components/Portrait.astro';
+import HomeSlides from '../components/HomeSlides.astro';
+import HomeIndex from '../components/HomeIndex.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ResearchCard from '../components/ResearchCard.astro';
+import { engineeringProjects, researchProjects } from '../data/projects';
+import { site } from '../data/site';
+import '../styles/home.css';
+---
+<BaseLayout>
+  <HomeSlides />
+  <section id="home" class="personal-hero wrap" aria-labelledby="hero-title">
+    <div class="hero-profile-grid">
+    <div class="personal-bio" data-reveal>
+      <Portrait compact />
+      <p>I’m a Master’s student in Artificial Intelligence & Data Science with a background in Statistics & Data Science. My current focus is data engineering, with hands-on work across data pipelines, streaming systems, and analytical architectures.</p>
+      <p>Outside of engineering, I enjoy classical music. My dream is to travel the world and experience different cultures firsthand.</p>
+    </div>
+    <div class="personal-identity" data-reveal>
+      <p class="eyebrow personal-location"><span class="status-dot"></span> {site.location}</p>
+      <h1 id="hero-title"><span>Youssef</span> <span>Khaloufi</span></h1>
+      <p class="eyebrow personal-status">Master’s student</p>
+      <p class="personal-title">Artificial Intelligence & Data Science</p>
+      <p class="personal-academic">{site.institution}</p>
+      <div class="personal-actions"><a class="button button-primary" href="/work/">View my work <Arrow /></a><a class="button button-quiet" href="/about/">About me <Arrow /></a></div>
+    </div>
+    <HomeIndex />
+    </div>
+    <CareerTimeline />
+  </section>
+  <section id="selected-work" class="home-screen home-work wrap" aria-labelledby="work-title">
+    <div data-reveal>
+      <div class="section-label"><span>01 / SELECTED ENGINEERING WORK</span><span class="section-rule"></span></div>
+      <div class="section-heading"><h2 id="work-title">From source<br /><span class="muted-heading">to understanding.</span></h2><a class="text-link" href="/work/">View all work <Arrow /></a></div>
+      <div class="project-grid">{engineeringProjects.map((project, i) => <ProjectCard project={project} featured={i === 0} preview />)}</div>
+    </div>
+  </section>
+  <section id="research" class="home-screen home-research wrap" aria-labelledby="research-title"><div data-reveal><div class="section-label"><span>02 / RESEARCH & EXPLORATIONS</span><span class="section-rule"></span></div><div class="section-heading"><h2 id="research-title">The questions<br /><span class="muted-heading">behind the systems.</span></h2><a class="text-link" href="/research/">Explore research <Arrow /></a></div><div class="research-grid">{researchProjects.map(project => <ResearchCard project={project} preview />)}</div></div></section>
+  <div id="connect" slot="contact-intro" class="home-contact-content" data-reveal><div><p class="eyebrow">03 / DATA, ENGINEERING, AND IDEAS</p><h2 id="connect-title">Let’s connect<span class="accent">.</span></h2></div><a class="button button-quiet" href={`mailto:${site.email}`}>Start a conversation <Arrow diagonal /></a></div>
+</BaseLayout>
