@@ -2,7 +2,7 @@ export interface ProjectSection { title: string; paragraphs?: string[]; bullets?
 export interface Project {
   slug: string; number: string; title: string; shortTitle: string; category: string;
   kind: 'engineering' | 'academic'; status: string; summary: string; question: string;
-  tags: string[]; repo?: string; commit?: string; sourcePaths?: string[];
+  tags: string[]; repo?: string; commit?: string; sourcePaths?: string[]; image?: string; imageAlt?: string;
   stages: { name: string; detail: string }[]; flowLabel: string; flowNote?: string;
   sections: ProjectSection[]; takeaway: string; attribution?: string;
   metric?: { value: string; label: string; note: string };
@@ -11,21 +11,63 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'mobility-control-tower', number: '01', title: 'Mobility Control Tower', shortTitle: 'Mobility Control Tower',
-    category: 'Layered data architecture', kind: 'engineering', status: 'In progress',
-    summary: 'From public transport schedules to tested analytical marts. A hands-on exploration of layered data architecture with Python and dbt.',
-    question: 'How does a source dataset become an analytical model you can reason about?',
-    tags: ['Python', 'SQL', 'dbt', 'DuckDB', 'GTFS'], repo: 'Mobility_Control_Tower', commit: '0e2490f16057f25dbea710b8a3eda7fa088ca2b6',
-    sourcePaths: ['README.md', 'pyproject.toml', 'dbt/models/marts', 'dbt/tests', 'docs/data_quality.md'],
-    flowLabel: 'The public data path',
-    stages: [{ name: 'GTFS', detail: 'Source schedules' }, { name: 'Raw', detail: 'Preserve' }, { name: 'Bronze', detail: 'Structure' }, { name: 'Silver', detail: 'Clean + validate' }, { name: 'dbt', detail: 'Stage + transform' }, { name: 'Gold', detail: 'Analytical marts' }],
-    flowNote: 'Python owns ingestion through Silver and its quality checks. dbt owns staging, intermediate models, and Gold.',
-    sections: [
-      { title: 'Learning through a real data flow', paragraphs: ['I started Mobility Control Tower to deepen my understanding of Data Engineering through practice. With a foundation in Python and SQL, I wanted to work through the decisions between an original source and a useful analytical model.', 'The project uses GTFS public-transport schedules. It preserves the original data, progressively structures and cleans it, and builds models for schedule-based questions.'] },
-      { title: 'An explicit transformation boundary', bullets: ['Python handles ingestion and the Raw, Bronze, and Silver layers.', 'Silver quality checks sit before the analytical transformations.', 'dbt uses the DuckDB adapter to build staging, intermediate models, and Gold marts.', 'The analytical layer includes model tests, unit tests, and reconciliation checks.'] },
-      { title: 'What the analytical layer answers', paragraphs: ['The public marts cover daily route trips, stop departures, hourly departures and headways, busiest routes and stops, and network summaries. These describe scheduled service; they do not measure live vehicle performance.'] },
-      { title: 'Current scope', paragraphs: ['This is an in-progress local analytical project. Gold marts are local build artifacts. The public implementation has no serving database, API, dashboard, realtime feed, or orchestrator.'] },
+    category: 'Public transport data engineering', kind: 'engineering', status: 'Completed',
+    summary: 'End-to-end public transport data engineering system combining GTFS schedules and GTFS-Realtime TripUpdates through Python ingestion, typed Parquet layers, dbt transformations, DuckDB analytics, Airflow orchestration, and a Streamlit dashboard.',
+    question: 'How can scheduled and realtime public transport data be transformed into reliable operational analytics?',
+    tags: ['Python', 'GTFS / GTFS-RT', 'Airflow', 'dbt', 'DuckDB', 'Streamlit'],
+    repo: 'Mobility_Control_Tower',
+    commit: '607b9e225dcc5d697331db7a1bbc22d23ab3e563',
+    sourcePaths: ['README.md', 'docs/architecture.md', 'docs/data_model.md', 'airflow/dags', 'dbt/models/marts', 'dbt/tests'],
+    image: '/images/mobility-control-tower-architecture.png',
+    imageAlt: 'Mobility Control Tower data pipeline and system architecture',
+    flowLabel: 'From source feeds to analytical outputs',
+    stages: [
+      { name: 'GTFS', detail: 'Static schedules' },
+      { name: 'GTFS-RT', detail: 'TripUpdates' },
+      { name: 'Python', detail: 'Ingest + validate' },
+      { name: 'Parquet', detail: 'Raw / Bronze / Silver' },
+      { name: 'dbt', detail: 'Transform + test' },
+      { name: 'DuckDB', detail: 'Analytics' },
+      { name: 'Streamlit', detail: 'Dashboard' }
     ],
-    takeaway: 'The useful part of a layered architecture is understanding what each layer guarantees before the next one depends on it.',
+    flowNote: 'Python owns source collection, preservation, parsing, Parquet layers, and pre-analytics validation. dbt owns analytical transformations and marts in DuckDB, while Airflow orchestrates the static and realtime workflows.',
+    sections: [
+      {
+        title: 'Schedule and realtime ingestion',
+        paragraphs: [
+          'The system combines Tisséo GTFS schedule archives with GTFS-Realtime TripUpdates. Static source archives are preserved with metadata and checksums, while realtime protobuf snapshots are collected on a five-minute cadence and stored with lineage metadata.'
+        ]
+      },
+      {
+        title: 'Layered processing and data quality',
+        bullets: [
+          'Raw preserves source payloads and collection metadata.',
+          'Bronze extracts the selected static GTFS text files without introducing analytical modelling.',
+          'Silver normalizes source data into typed Parquet datasets for downstream analytics.',
+          'Python validation checks identifiers, relationships, snapshot integrity, and delay sanity before analytical transformation.',
+          'Missing realtime observations remain unknown rather than being inferred as cancellations or on-time service.'
+        ]
+      },
+      {
+        title: 'Analytical modelling',
+        paragraphs: [
+          'dbt builds eight staging models, three intermediate models, and six analytical marts in DuckDB. The analytical layer covers scheduled service, route delay summaries, hourly delay behaviour, network on-time performance, realtime coverage, and feed freshness.'
+        ],
+        bullets: [
+          'On-time performance uses an inclusive -60 to +300 second window.',
+          'Delay observations are validated against a ±7200 second sanity bound.',
+          'Coverage distinguishes scheduled trips from exact realtime trip matches.',
+          'Reliability metrics expose sample-size confidence rather than treating sparse observations as equally representative.'
+        ]
+      },
+      {
+        title: 'Orchestration and consumption',
+        paragraphs: [
+          'Airflow provides separate static and realtime DAGs. The static workflow refreshes schedule data daily, while the realtime workflow processes TripUpdates on a five-minute schedule. DuckDB provides the analytical serving layer and Streamlit exposes Network Overview, Route Reliability, and Data Quality / Feed Health views.'
+        ]
+      }
+    ],
+    takeaway: 'Reliable transport analytics depend on preserving source evidence, separating schedule semantics from realtime observations, and validating each transformation boundary.',
   },
   {
     slug: 'amazon-reviews-streaming-pipeline', number: '02', title: 'Amazon Reviews Streaming Sentiment Pipeline', shortTitle: 'Amazon Reviews Streaming Pipeline',

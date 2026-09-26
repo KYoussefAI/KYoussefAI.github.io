@@ -311,3 +311,18 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
   .hero-actions { gap: 10px; }
   .hero-actions .button { font-size: 13px; padding-inline: 12px; gap: 12px; }
 }
+
+.project-architecture {
+  margin: 2.5rem 0 3rem;
+}
+
+.project-architecture a {
+  display: block;
+}
+
+.project-architecture img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+}

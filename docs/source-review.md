@@ -6,7 +6,7 @@ The portfolio does not claim to have independently reproduced the projects' trai
 
 | Project | Public repository | Reviewed revision |
 | --- | --- | --- |
-| Mobility Control Tower | [Mobility_Control_Tower](https://github.com/KYoussefAI/Mobility_Control_Tower) | `0e2490f16057f25dbea710b8a3eda7fa088ca2b6` |
+| Mobility Control Tower | [Mobility_Control_Tower](https://github.com/KYoussefAI/Mobility_Control_Tower) | `607b9e225dcc5d697331db7a1bbc22d23ab3e563` |
 | Amazon Reviews | [amazon-reviews-streaming-pipeline](https://github.com/KYoussefAI/amazon-reviews-streaming-pipeline) | `6e5f853ab5317785ed582abd833efb44f7bcbf08` |
 | Job Data Pipeline — France | [job-data-pipeline-france](https://github.com/KYoussefAI/job-data-pipeline-france) | `d0be1bf0d392c22d13acfb6553e12c3db2f75360` |
 | Snort RAG | [snort_rag_rule_generator](https://github.com/KYoussefAI/snort_rag_rule_generator) | `e7f49c4fd5de22c3c21a7c41d40979ce70573e96` |
@@ -15,7 +15,7 @@ The portfolio does not claim to have independently reproduced the projects' trai
 
 ## Content decisions
 
-- **Mobility:** README, `pyproject.toml`, dbt model/test tree, Silver quality documentation, and the hourly headway mart. Python owns ingestion through Silver; dbt with DuckDB owns analytical transformations. Schedule-based marts are supported. No serving database, API, dashboard, realtime feed, or orchestrator is claimed. Status remains in progress.
+- **Mobility:** README, architecture and data-model documentation, Airflow DAGs, dbt models/tests, DuckDB analytical layer, Streamlit dashboard, and GTFS/GTFS-Realtime ingestion pipeline.
 - **Amazon:** Full README, comparison CSV, tuning report, streaming implementation, and Airflow DAG. The comparison artifact reports ensemble test Macro F1 0.702274. This is distinct from the saved One-vs-Rest SVC used in streaming. Airflow handles bounded batch tasks, including training; continuous services are separate. Kafka replication is a documented local setup and learning topic, not a tested uptime claim. Stream events replay exported data. The dashboard reads stored predictions. Screenshots were identified in the public tree and README; portfolio visuals use explanatory diagrams rather than inventing a live dashboard.
 - **Job pipeline:** Full README and SQL views. The timestamp lesson is framed around observations collected through a partial API. Job deduplication means a cumulative observation view is not a complete daily active-listing snapshot. Market-size, salary, and growth conclusions are intentionally omitted. The empty similarly named repository was not used.
 - **Snort RAG:** Full README and public module/result tree. Retrieval variants, strict parsing, deterministic fallback, Snort 3 validation, and lab replay are described with academic limits. Passing validation includes accepted/fallback output and is not raw LLM success. This is not presented as a production security system.
