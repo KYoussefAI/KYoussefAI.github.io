@@ -1341,3 +1341,70 @@ a:focus-visible {
     animation:none!important
   }
 }
+
+
+/* Guided scrolling: each wheel gesture glides to a deliberate reading stop. */
+html.is-section-sliding { scroll-behavior: auto; }
+.section-rail {
+  position: fixed;
+  z-index: 15;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  padding: 17px 11px;
+  border: 1px solid rgba(25,35,34,.12);
+  background: rgba(244,242,235,.91);
+  box-shadow: 0 6px 26px rgba(0,0,0,.08);
+  backdrop-filter: blur(10px);
+}
+.section-rail a {
+  position: relative;
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--ink);
+  background: transparent;
+  transition: background .25s, transform .25s;
+}
+.section-rail a:hover,
+.section-rail a[aria-current="location"] {
+  background: var(--orange);
+  border-color: var(--orange);
+  transform: scale(1.35);
+}
+.section-rail a::before {
+  content: attr(data-label);
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8px 11px;
+  font: 500 11px var(--mono);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+.section-rail a:hover::before,
+.section-rail a:focus-visible::before { opacity: 1; }
+@media (max-width: 1199px), (pointer: coarse) {
+  .section-rail { display: none; }
+}
+@media (max-width: 1023px), (pointer: coarse) {
+  /* A light snap on touch / smaller screens; long content stays scrollable. */
+  html { scroll-snap-type: y proximity; }
+  .hero, .work-section, .principles, .about-section, .contact-section {
+    scroll-snap-align: start;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none; }
+  .section-rail a, .section-rail a::before { transition: none; }
+}
