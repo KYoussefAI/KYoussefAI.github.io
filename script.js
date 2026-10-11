@@ -1,209 +1,165 @@
-// Full-section presentation navigation. Every wheel gesture advances to the next
-// complete slide, with one project per screen instead of arbitrary pixel stops.
+// A deliberate, section-at-a-time portfolio with accessible mobile fallback.
 const year = document.getElementById('year');
 if (year) year.textContent = String(new Date().getFullYear());
 
 (() => {
   const main = document.querySelector('main');
-  if (!main) return;
-  const hero = main.querySelector('.hero');
-  const statement = main.querySelector('.statement-band');
-  const work = main.querySelector('.work-section');
-  const principles = main.querySelector('.principles');
-  const about = main.querySelector('.about-section');
-  const contact = main.querySelector('.contact-section');
-  const footer = document.querySelector('.site-footer');
-  const workContainer = work?.querySelector('.shell');
-  const cases = [...(workContainer?.querySelectorAll('.secondary-grid > .secondary-case') || [])];
-  const moreWork = workContainer?.querySelector('.more-work');
-  if (!hero || !statement || !work || !principles || !about || !contact || cases.length !== 2 || !footer) return;
+  const header = document.querySelector('.site-header');
+  if (!main || !header) return;
+  const $ = selector => document.querySelector(selector);
+  const hero = $('.hero'), band = $('.statement-band'), work = $('#work');
+  const principles = $('#principles'), about = $('#about'), contact = $('#contact');
+  const footer = $('.site-footer');
+  const workShell = work?.querySelector('.shell');
+  const grid = workShell?.querySelector('.secondary-grid');
+  const cards = grid ? [...grid.children] : [];
+  const other = workShell?.querySelector('.more-work');
+  if (!hero || !band || !work || !principles || !about || !contact || !footer || cards.length !== 2) return;
 
-  const make = (tag, cls, attributes = {}) => {
+  const element = (tag, classes, attrs = {}) => {
     const node = document.createElement(tag);
-    node.className = cls;
-    Object.entries(attributes).forEach(([key, value]) => node.setAttribute(key, value));
+    node.className = classes;
+    for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, value);
     return node;
   };
-  const intro = make('section', 'viewport-stage intro-stage', { id: 'intro', 'aria-label': 'Introduction' });
-  intro.append(hero, statement);
-  hero.removeAttribute('id');
+  const intro = element('section', 'viewport-stage intro-stage', {id: 'intro', 'aria-label': 'Introduction'});
+  intro.append(hero, band);
   work.classList.add('viewport-stage', 'featured-stage');
-  const unusedGrid = workContainer.querySelector('.secondary-grid');
-  unusedGrid.remove();
-  moreWork?.remove();
-  const projects = [
-    { id: 'amazon', label: '02 / STREAMING SYSTEM', name: 'Amazon Reviews', item: cases[0], cls: 'amazon-stage' },
-    { id: 'job-pipeline', label: '03 / DATA PIPELINE', name: 'French Job Market', item: cases[1], cls: 'jobs-stage' }
-  ].map(({id,label,name,item,cls}) => {
-    const stage = make('section', 'viewport-stage individual-project-stage ' + cls, {
-      id, 'aria-label': name
-    });
-    const shell = make('div', 'shell project-slide-layout');
-    const heading = make('div', 'slide-heading');
-    const count = make('span', 'section-number');
-    count.textContent = label;
-    const kicker = make('p', 'slide-kicker');
-    kicker.textContent = name === 'Amazon Reviews'
-      ? 'From events to decisions.'
-      : 'A timestamp changes the story.';
-    heading.append(count, kicker);
-    shell.append(heading, item);
-    if(id === 'job-pipeline' && moreWork) shell.append(moreWork);
-    stage.append(shell);
-    return stage;
-  });
+  grid.remove();
+  other?.remove();
+  const project = (id, title, subtitle, label, card, extra) => {
+    const slide = element('section', 'viewport-stage single-project-stage', {id, 'aria-label': title});
+    const shell = element('div', 'shell single-project-shell');
+    const heading = element('div', 'single-project-heading');
+    const kicker = element('span', 'section-number');
+    kicker.textContent = label;
+    const headingTitle = element('h2', 'slide-title');
+    headingTitle.textContent = subtitle;
+    heading.append(kicker, headingTitle);
+    shell.append(heading, card);
+    if (extra) shell.append(extra);
+    slide.append(shell);
+    return slide;
+  };
+  const amazon = project('amazon', 'Amazon Reviews', 'Streaming data, measured.', '02 / STREAMING SYSTEM', cards[0]);
+  const jobs = project('job-pipeline', 'French Job Market', 'Meaning before metrics.', '03 / DATA PIPELINE', cards[1], other);
   principles.classList.add('viewport-stage', 'principles-stage');
   about.classList.add('viewport-stage', 'about-stage');
   contact.classList.add('viewport-stage', 'contact-stage');
   contact.append(footer);
-  main.replaceChildren(intro, work, ...projects, principles, about, contact);
-  const stages = [...main.querySelectorAll('.viewport-stage')];
+  main.replaceChildren(intro, work, amazon, jobs, principles, about, contact);
   document.documentElement.classList.add('presentation-ready');
 
-  const small = window.matchMedia('(max-width: 1023px), (max-height: 649px), (pointer: coarse)');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const canPage = () => !small.matches;
-  let activeIndex = 0;
-  let lockUntil = 0;
-  let frame = null;
-  let scrollFrame = null;
-
-  const stageTop = index => Math.round(stages[index].getBoundingClientRect().top + window.scrollY);
-  const closestIndex = () => {
-    const y = window.scrollY;
-    let best = 0;
-    let distance = Infinity;
-    stages.forEach((stage, i) => {
-      const d = Math.abs(stageTop(i) - y);
-      if(d < distance) { distance = d; best = i; }
-    });
-    return best;
-  };
-  const rail = make('nav','section-rail', { 'aria-label': 'Portfolio slides' });
-  const names = ['Introduction', 'Mobility Control Tower', 'Amazon Reviews', 'Job Data Pipeline', 'Engineering notes', 'About', 'Contact'];
-  stages.forEach((stage,i) => {
-    const a = make('a','',{href:'#' + stage.id, 'aria-label':names[i] || 'Slide ' + (i+1)});
-    a.title = names[i] || 'Slide ' + (i+1);
-    const dot = make('span','rail-dot');
-    a.append(dot);
-    rail.append(a);
+  const slides = [...main.querySelectorAll('.viewport-stage')];
+  const labels = ['Introduction', 'Mobility Control Tower', 'Amazon Reviews', 'French Job Market', 'Engineering notes', 'About', 'Contact'];
+  const rail = element('nav', 'section-rail', {'aria-label':'Jump to a slide'});
+  const railLinks = slides.map((slide, index) => {
+    const link = element('a', '', {href:'#'+slide.id, title:labels[index], 'aria-label':labels[index]});
+    link.append(element('span', 'rail-dot'));
+    rail.append(link);
+    return link;
   });
   document.body.append(rail);
-  const railLinks = [...rail.querySelectorAll('a')];
 
-  function paintNav() {
-    railLinks.forEach((link,i) => {
-      if(i === activeIndex) link.setAttribute('aria-current','step');
-      else link.removeAttribute('aria-current');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const pageMode = window.matchMedia('(min-width: 1024px) and (min-height: 700px) and (pointer: fine)');
+  let selected = 0, animation = 0, scrollTick = 0, lastWheel = -1000;
+  const yOf = index => Math.round(slides[index].getBoundingClientRect().top + scrollY);
+  const nearest = () => {
+    let result = 0, distance = Infinity;
+    slides.forEach((slide, i) => {
+      const d = Math.abs(yOf(i) - scrollY);
+      if (d < distance) { distance = d; result = i; }
     });
-  }
-  function stop() {
-    if(frame !== null) cancelAnimationFrame(frame);
-    frame = null;
-    document.documentElement.classList.remove('is-section-sliding');
-  }
-  function navigateTo(index, opts = {}) {
-    index = Math.max(0, Math.min(stages.length - 1, index));
-    if(index === activeIndex && Math.abs(window.scrollY - stageTop(index)) < 3) return;
-    stop();
-    activeIndex = index;
-    paintNav();
-    const target = stageTop(index);
-    const start = window.scrollY;
-    const diff = target - start;
-    if(reduceMotion.matches || !canPage() || opts.instant || Math.abs(diff) < 3) {
-      window.scrollTo({top:target,behavior:'instant'});
-      lockUntil = performance.now() + 200;
+    return result;
+  };
+  const updateRail = () => railLinks.forEach((link, i) => {
+    if (i === selected) link.setAttribute('aria-current','step');
+    else link.removeAttribute('aria-current');
+  });
+  const cancel = () => {
+    if (animation) cancelAnimationFrame(animation);
+    animation = 0;
+  };
+  const go = (index, instant = false) => {
+    index = Math.max(0, Math.min(slides.length-1, index));
+    cancel();
+    selected = index;
+    updateRail();
+    const target = yOf(index), from = scrollY;
+    if (instant || !pageMode.matches || reducedMotion.matches || Math.abs(target-from)<2) {
+      scrollTo({top:target,behavior:'instant'});
       return;
     }
-    const began = performance.now();
-    const duration = 780;
-    lockUntil = began + duration + 220;
-    document.documentElement.classList.add('is-section-sliding');
-    const tick = now => {
-      const t = Math.min(1,(now-began)/duration);
-      const ease = t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
-      window.scrollTo({top:start+diff*ease,behavior:'instant'});
-      if(t<1) frame=requestAnimationFrame(tick);
-      else {
-        frame=null;
-        document.documentElement.classList.remove('is-section-sliding');
-        window.scrollTo({top:target,behavior:'instant'});
-      }
+    const started = performance.now(), duration = 600, distance = target-from;
+    const animate = now => {
+      const p = Math.min(1,(now-started)/duration);
+      const eased = 1-Math.pow(1-p,3);
+      scrollTo({top:from+distance*eased,behavior:'instant'});
+      if(p<1) animation=requestAnimationFrame(animate);
+      else {animation=0; scrollTo({top:target,behavior:'instant'});}
     };
-    frame=requestAnimationFrame(tick);
-  }
-
-  function next(direction) {
-    if(performance.now() < lockUntil) return;
-    navigateTo(activeIndex + direction);
-  }
-  function internalScroll(target, direction) {
-    for(let element = target; element && element !== document.body; element=element.parentElement) {
-      if(!(element instanceof HTMLElement)) continue;
-      const style = window.getComputedStyle(element);
-      if(!['auto','scroll'].includes(style.overflowY) || element.scrollHeight <= element.clientHeight + 3) continue;
-      if(direction > 0 && element.scrollTop + element.clientHeight < element.scrollHeight - 3) return true;
-      if(direction < 0 && element.scrollTop > 3) return true;
+    animation=requestAnimationFrame(animate);
+  };
+  const move = direction => go(selected+direction);
+  const wheelSafe = (target, direction) => {
+    for (let node=target; node && node !== document.body; node=node.parentElement) {
+      if (!(node instanceof HTMLElement)) continue;
+      const style = getComputedStyle(node);
+      if (!['auto','scroll'].includes(style.overflowY) || node.scrollHeight <= node.clientHeight+2) continue;
+      if (direction>0 ? node.scrollTop+node.clientHeight<node.scrollHeight-2 : node.scrollTop>2) return true;
     }
     return false;
-  }
-  window.addEventListener('wheel',event => {
-    if(!canPage() || event.ctrlKey || event.metaKey || !event.deltaY ||
-       Math.abs(event.deltaX) > Math.abs(event.deltaY) ||
-       internalScroll(event.target, Math.sign(event.deltaY))) return;
+  };
+  window.addEventListener('wheel', event => {
+    if (!pageMode.matches || event.ctrlKey || event.metaKey || !event.deltaY ||
+        Math.abs(event.deltaX)>Math.abs(event.deltaY) || wheelSafe(event.target,Math.sign(event.deltaY))) return;
     event.preventDefault();
-    next(Math.sign(event.deltaY));
+    const now=performance.now();
+    // Group inertia / wheel events into one gesture. A new deliberate gesture,
+    // even during animation, immediately advances instead of being discarded.
+    const newGesture = now-lastWheel > 180;
+    lastWheel=now;
+    if (newGesture) move(Math.sign(event.deltaY));
   },{passive:false});
-  document.addEventListener('keydown',event => {
-    if(!canPage() || event.ctrlKey || event.metaKey || event.altKey ||
-      event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
-    const backward = ['ArrowUp','PageUp'].includes(event.key);
-    const forward = ['ArrowDown','PageDown',' '].includes(event.key);
-    if(!backward && !forward && event.key !== 'Home' && event.key !== 'End') return;
-    event.preventDefault();
-    if(event.key === 'Home') navigateTo(0);
-    else if(event.key === 'End') navigateTo(stages.length-1);
-    else next(backward ? -1 : 1);
+  document.addEventListener('keydown', event => {
+    if (!pageMode.matches || event.ctrlKey || event.altKey || event.metaKey ||
+        event.target.closest('input,textarea,select,button,[contenteditable="true"]')) return;
+    if (['ArrowDown','PageDown',' '].includes(event.key)) {event.preventDefault();move(1);}
+    else if (['ArrowUp','PageUp'].includes(event.key)) {event.preventDefault();move(-1);}
+    else if (event.key==='Home') {event.preventDefault();go(0);}
+    else if (event.key==='End') {event.preventDefault();go(slides.length-1);}
   });
   document.addEventListener('click',event => {
-    const a = event.target.closest('a[href^="#"]');
-    if(!a) return;
-    const hash = a.getAttribute('href');
-    let index = stages.findIndex(stage => '#' + stage.id === hash);
-    if(hash === '#top' || hash === '#main') index = 0;
-    if(index < 0) return;
+    const link=event.target.closest('a[href^="#"]');
+    if(!link) return;
+    const hash=link.getAttribute('href');
+    const target=(hash==='#top'||hash==='#main') ? slides[0] : $(hash);
+    if(!target) return;
+    const slide=target.closest('.viewport-stage');
+    if(!slide) return;
     event.preventDefault();
-    if(location.hash !== hash) history.pushState(null,'',hash);
-    navigateTo(index);
-    document.querySelector('.mobile-menu')?.removeAttribute('open');
-  });
-  window.addEventListener('scroll',() => {
-    if(frame !== null || scrollFrame !== null) return;
-    scrollFrame = requestAnimationFrame(() => {
-      scrollFrame=null;
-      const nearest = closestIndex();
-      if(nearest !== activeIndex) { activeIndex = nearest; paintNav(); }
-    });
-  },{passive:true});
-  window.addEventListener('resize',() => {
-    stop();
-    lockUntil = 0;
-    activeIndex = closestIndex();
-    paintNav();
+    if(location.hash!==hash) history.pushState(null,'',hash);
+    go(slides.indexOf(slide));
+    $('.mobile-menu')?.removeAttribute('open');
   });
   window.addEventListener('hashchange', () => {
-    const i=stages.findIndex(s => '#' + s.id === location.hash);
-    if(i >= 0) navigateTo(i);
-    else if(location.hash === '#top') navigateTo(0);
+    const node=document.getElementById(location.hash.slice(1));
+    const slide=node?.closest('.viewport-stage');
+    if(slide) go(slides.indexOf(slide));
+    else if(location.hash==='#top') go(0);
   });
-  // Entry from an existing deep link is supported, but older #anchors that
-  // refer to content inside a slide also resolve to that slide.
-  const hashTarget = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-  if(hashTarget) {
-    const owner = hashTarget.closest('.viewport-stage');
-    if(owner) activeIndex = stages.indexOf(owner);
-  }
-  paintNav();
-  if(canPage()) requestAnimationFrame(() => navigateTo(activeIndex, {instant:true}));
+  window.addEventListener('scroll',() => {
+    if(animation || scrollTick) return;
+    scrollTick=requestAnimationFrame(() => {
+      scrollTick=0;
+      const index=nearest();
+      if(index!==selected) {selected=index;updateRail();}
+    });
+  },{passive:true});
+  window.addEventListener('resize',() => {cancel();selected=nearest();updateRail();});
+  const initial=document.getElementById(decodeURIComponent(location.hash.slice(1)))?.closest('.viewport-stage');
+  if(initial) selected=slides.indexOf(initial);
+  updateRail();
+  requestAnimationFrame(() => { if(pageMode.matches) go(selected,true); });
 })();
