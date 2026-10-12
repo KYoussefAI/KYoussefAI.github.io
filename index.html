@@ -2,125 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#f4f2eb">
-  <meta name="description" content="Youssef Khaloufi is a data engineer working on traceable ingestion, tested data models, and reliable batch and streaming systems. Selected projects and engineering decisions.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f6f1">
+  <meta name="description" content="Youssef Khaloufi — Data Engineering and Analytics Engineering. Selected pipeline projects and background. Seeking a 5–6 month PFE internship from February 2027.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Youssef Khaloufi — Data Engineering / Systems & Decisions">
-  <meta property="og:description" content="From messy inputs to reliable analytical systems. Engineering work by Youssef Khaloufi.">
-  <meta property="og:url" content="https://kyoussefai.github.io/">
-  <title>Youssef Khaloufi — Data Engineering & Systems</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta property="og:title" content="Youssef Khaloufi — Data Engineering">
+  <meta property="og:description" content="Batch, streaming and analytical systems. Portfolio of Youssef Khaloufi.">
+  <title>Youssef Khaloufi — Data Engineering</title>
   <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header shell" id="top">
-    <a class="identity" href="#top" aria-label="Youssef Khaloufi — homepage"><span class="identity-mark" aria-hidden="true">Y<span>K</span></span><span class="identity-name">Youssef<br>Khaloufi<span class="identity-dot">.</span></span></a>
-    <nav class="desktop-nav" aria-label="Main navigation"><a href="#work">Selected work</a><a href="#principles">Engineering notes</a><a href="#about">About</a></nav>
-    <details class="mobile-menu"><summary>Menu <span aria-hidden="true">+</span></summary><nav aria-label="Mobile navigation"><a href="#work">Selected work</a><a href="#principles">Engineering notes</a><a href="#about">About</a><a href="#contact">Contact</a></nav></details>
-    <a class="nav-cta" href="assets/Youssef_Khaloufi_CV_Data_Engineering_2027.pdf" target="_blank" rel="noopener">Download CV <span aria-hidden="true">↗</span></a>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"><div id="scroll-progress"></div></div>
+  <header class="site-header">
+    <div class="wrap nav-wrap">
+      <a href="#top" class="brand" aria-label="Youssef Khaloufi — top of page"><span class="monogram">YK<span>.</span></span><span>YOUSSEF KHALOUFI</span></a>
+      <nav aria-label="Main navigation" class="nav-links">
+        <a href="#work">Projects</a><a href="#background">Background</a><a href="#contact">Contact</a>
+      </nav>
+      <a class="header-cv" href="https://kyoussefai.github.io/assets/Youssef_Khaloufi_CV_Data_Engineering_2027.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open latest CV, PDF">CV <span aria-hidden="true">↗</span></a>
+    </div>
   </header>
   <main id="main">
-    <section class="hero shell" aria-labelledby="hero-title">
-      <div class="hero-topline"><span>DATA ENGINEER <span class="topline-sep">/</span> TANGIER, MOROCCO</span><span class="index-stamp">PORTFOLIO <b>—</b> 2026</span></div>
-      <div class="hero-grid">
-        <div class="hero-main">
-          <p class="monolabel hero-label"><span class="signal-dot"></span> SYSTEMS, NOT JUST SCRIPTS</p>
-          <h1 id="hero-title">DATA<br>YOU CAN<br><em>DEFEND<span class="period">.</span></em></h1>
-          <p class="hero-intro">I design the path from raw, unreliable inputs to data people can actually reason about.</p>
-          <div class="hero-actions"><a class="action-primary" href="#work">Explore the work <span aria-hidden="true">↗</span></a><a class="text-action" href="https://github.com/KYoussefAI" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
+    <section class="hero wrap" id="top" aria-labelledby="hero-heading">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> DATA ENGINEERING <span class="dim">/</span> TANGIER, MOROCCO</p>
+        <h1 id="hero-heading">Youssef<br><em>Khaloufi<span>.</span></em></h1>
+        <div class="role-line"><span>DATA ENGINEER</span><span class="role-slash" aria-hidden="true">/</span><span>ANALYTICS ENGINEERING</span></div>
+        <p class="hero-description">M2 Artificial Intelligence &amp; Data Science student at FST Tangier. I build reliable data pipelines, reproducible transformations and analytics that respect what the data actually says.</p>
+        <div class="hero-actions" aria-label="Primary portfolio actions">
+          <a class="primary-link hero-cv-button" href="https://kyoussefai.github.io/assets/Youssef_Khaloufi_CV_Data_Engineering_2027.pdf" target="_blank" rel="noopener noreferrer">Download my CV <span aria-hidden="true">↗</span></a>
+          <a href="#work" class="secondary-link">View projects <span aria-hidden="true">↘</span></a>
+          <a class="under-link" href="https://www.linkedin.com/in/khaloufi-youssef" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
         </div>
-        <aside class="hero-side" aria-label="Engineering focus">
-          <div class="side-head"><span class="monolabel">FIELD NOTES / 00</span><span class="side-cross">✳</span></div>
-          <div class="hero-side-drawing" aria-hidden="true">
-            <svg viewBox="0 0 360 276" fill="none" role="img">
-              <path d="M2 60H358M2 134H358M2 208H358" stroke="currentColor" stroke-opacity=".11" stroke-dasharray="3 5"/>
-              <path d="M38 7V268M180 7V268M322 7V268" stroke="currentColor" stroke-opacity=".11" stroke-dasharray="3 5"/>
-              <path d="M42 62C100 62 106 134 177 134S246 208 318 208" stroke="#ed5934" stroke-width="6" stroke-linecap="square"/>
-              <rect x="23" y="42" width="38" height="38" fill="#1d2928"/><rect x="160" y="115" width="38" height="38" fill="#1d2928"/><rect x="299" y="189" width="38" height="38" fill="#ed5934"/>
-              <path d="M34 62H50M42 54V70M170 134L178 142L190 125M309 208H327" stroke="#f4f2eb" stroke-width="3"/>
-              <path d="M77 57h44M211 129h38M234 203h48" stroke="currentColor" stroke-opacity=".35" stroke-width="1"/>
-              <circle cx="100" cy="79" r="3" fill="#ed5934"/><circle cx="254" cy="181" r="3" fill="#ed5934"/>
-              <path d="M94 244h172" stroke="currentColor" stroke-width="1" stroke-opacity=".3"/>
-            </svg>
+        <div class="pfe-panel" data-reveal>
+          <div class="pfe-icon" aria-hidden="true"><span class="pulse"></span></div>
+          <div class="pfe-copy">
+            <span class="pfe-label">OPEN TO A PFE INTERNSHIP</span>
+            <strong>February 2027 <span class="pfe-divider">·</span> 5–6 months</strong>
+            <span class="pfe-small">Data Engineering / Analytics Engineering / Data Platforms</span>
           </div>
-          <div class="side-caption"><span class="monolabel">A WORKING PHILOSOPHY</span><p>Preserve the source.<br>Make the assumptions explicit.<br>Test the output.</p></div>
-          <div class="side-footer"><span>01 / 03</span><span>RAW → RELIABLE</span></div>
-        </aside>
+          <a href="mailto:youssefkhaloufi43@gmail.com?subject=PFE%20Internship%20%E2%80%94%20February%202027" aria-label="Email about a PFE internship">↗</a>
+        </div>
+
       </div>
-      <div class="hero-bottom"><span class="monolabel">CURRENT FOCUS</span><p>Batch & streaming pipelines <span>/</span> analytics engineering <span>/</span> data quality</p><a href="#work" aria-label="Scroll to selected work">↓</a></div>
+      <aside class="hero-visual" aria-label="Featured project architecture illustration">
+        <div class="visual-top"><span><i class="live-dot" aria-hidden="true"></i> FEATURED SYSTEM</span><span>PROJECT / 001</span></div>
+        <div class="hero-visual-title"><div><p>RECENT ENGINEERING WORK</p><h2>Mobility<br>Control Tower</h2></div><span class="visual-number" aria-hidden="true">01</span></div>
+        <p class="visual-intro">GTFS &amp; real-time transport analytics with traceable observations and explicit uncertainty.</p>
+        <div class="system-architecture" aria-label="GTFS and GTFS-Realtime data flowing through validation into dbt and DuckDB">
+          <div class="sys-sources"><div class="sys-box"><span>INPUT A</span><strong>GTFS static</strong><small>timetables</small></div><div class="sys-box"><span>INPUT B</span><strong>GTFS-RT</strong><small>observations</small></div></div>
+          <div class="stream-path" aria-hidden="true"><svg viewBox="0 0 440 56" preserveAspectRatio="none"><path class="stream-base" d="M110 0V22H220V54M330 0V22H220" /><path class="stream-beam" d="M110 0V22H220V54M330 0V22H220" /></svg><span class="moving-signal"></span></div>
+          <div class="sys-box sys-long"><span>PROCESS / VALIDATE</span><strong>Raw → Silver</strong><small>preservation · canonical types · quality checks</small></div>
+          <div class="vertical-line" aria-hidden="true"><span></span></div>
+          <div class="sys-box sys-long sys-accent"><span>ANALYZE / SERVE</span><strong>dbt → DuckDB</strong><small>models · tests · reliability metrics</small></div>
+        </div>
+        <div class="visual-bottom"><div><strong>17</strong><span>dbt models</span></div><div><strong>02</strong><span>Airflow DAGs</span></div><a href="https://github.com/KYoussefAI/Mobility_Control_Tower" target="_blank" rel="noopener noreferrer">CASE STUDY ↗</a></div>
+      </aside>
+      <div class="hero-foot"><span>PORTFOLIO / 2026</span><span class="scroll-hint">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></span></div>
     </section>
 
-    <div class="statement-band" aria-label="Focus areas"><div class="shell statement-inner"><span>INGESTION</span><b>↗</b><span>MODELING</span><b>↗</b><span>ORCHESTRATION</span><b>↗</b><span>RELIABILITY</span></div></div>
-
-    <section class="work-section" id="work" aria-labelledby="work-heading">
-      <div class="shell">
-        <div class="section-header"><div><span class="section-number">01 / SELECTED WORK</span><h2 id="work-heading">Built to answer<br><em>real questions.</em></h2></div><p>Not a gallery of tools. A few systems, the decisions behind them, and the evidence that they work.</p></div>
-        <article class="main-project" aria-labelledby="mobility-heading">
-          <div class="main-project-upper"><span class="work-id">CASE STUDY 001 <span>—</span> TRANSPORT DATA</span><span class="work-year">2026 / PYTHON · DBT · AIRFLOW</span></div>
-          <div class="main-project-content">
-            <div class="main-project-copy">
-              <span class="monolabel orange">FROM SOURCE TO SEMANTICS</span>
-              <h3 id="mobility-heading">Mobility<br>Control Tower<span class="orange">.</span></h3>
-              <p class="case-summary">A GTFS and real-time transit data platform built for traceable ingestion, defensible reliability metrics and repeatable analytics.</p>
-              <div class="decision-note"><span class="note-number">THE IMPORTANT DECISION / 01</span><p>Missing real-time data is <strong>not</strong> the same as a cancelled trip.</p><small>Unknown stays unknown. That distinction shapes the data model and everything built on top of it.</small></div>
-              <div class="case-links"><a href="https://github.com/KYoussefAI/Mobility_Control_Tower" target="_blank" rel="noopener noreferrer">Explore the repository <span aria-hidden="true">↗</span></a><a href="https://github.com/KYoussefAI/Mobility_Control_Tower/blob/main/docs/architecture.md" target="_blank" rel="noopener noreferrer">Architecture notes <span aria-hidden="true">↗</span></a></div>
-            </div>
-            <div class="architecture-panel" aria-label="Mobility Control Tower data architecture summary">
-              <div class="panel-head"><span>ARCHITECTURE / STATIC + REALTIME</span><span class="small-status"><i></i> DOCUMENTED SYSTEM</span></div>
-              <div class="data-source-row"><div class="source"><span>01 / INPUT</span><b>GTFS static</b><small>scheduled service</small></div><div class="source"><span>01 / INPUT</span><b>GTFS-RT</b><small>observed updates</small></div></div>
-              <div class="architecture-arrows"><span>↓</span><span>↓</span></div>
-              <div class="architecture-stage"><span>02 / PRESERVE</span><b>Raw archives & snapshots</b><small>timestamps · provenance · checksums</small></div>
-              <div class="architecture-down">↓</div>
-              <div class="architecture-stage"><span>03 / STANDARDIZE</span><b>Bronze / Silver</b><small>validated · typed · canonical Parquet</small></div>
-              <div class="architecture-down">↓</div>
-              <div class="architecture-stage stage-accent"><span>04 / MODEL</span><b>dbt → DuckDB marts</b><small>lineage · tests · reliability semantics</small></div>
-              <div class="architecture-foot"><span>17 <small>dbt models</small></span><span>02 <small>Airflow DAGs</small></span><span>80% <small>coverage gate</small></span></div>
-            </div>
-          </div>
-          <div class="case-footnote"><span>DESIGN CONCERNS</span><span>source preservation</span><span>idempotency</span><span>metric contracts</span><span>testing</span></div>
-        </article>
-        <div class="secondary-grid">
-          <article class="secondary-case" aria-labelledby="amazon-heading">
-            <div class="secondary-label"><span>CASE STUDY 002</span><span>STREAMING / ML</span></div>
-            <div class="secondary-graphic pipeline-graphic" aria-hidden="true"><div class="pipeline-line"><div><span>01</span><b>Reviews</b></div><i></i><div><span>02</span><b>Kafka</b></div><i></i><div class="active"><span>03</span><b>Spark</b></div><i></i><div><span>04</span><b>MongoDB</b></div></div><span class="graphic-caption">EVENTS → INFERENCE → PERSISTENCE</span></div>
-            <h3 id="amazon-heading">Amazon Reviews<br>Streaming Pipeline</h3>
-            <p>Batch model comparison connected to streaming sentiment inference and a lightweight analytical interface.</p>
-            <div class="secondary-insight"><strong>5 models</strong><span>compared using Macro F1; reported best score 0.701.</span></div>
-            <a href="https://github.com/KYoussefAI/amazon-reviews-streaming-pipeline" target="_blank" rel="noopener noreferrer" class="secondary-link">Read the case / GitHub <span aria-hidden="true">↗</span></a>
+    <section id="work" class="work-section" aria-labelledby="work-heading">
+      <div class="wrap work-layout">
+        <div class="work-intro" data-reveal>
+          <p class="eyebrow">01 / SELECTED WORK</p>
+          <h2 id="work-heading">Selected<br><span>engineering work.</span></h2>
+          <p>Three projects spanning transport analytics, environmental ELT and streaming machine learning.</p>
+          <p class="work-small">Built around real data sources, documented design choices and dependable analytical outputs.</p>
+          <div class="index-marker"><span class="line"></span><span>03 PROJECTS</span></div>
+        </div>
+        <div class="project-stack" aria-label="Three selected engineering projects">
+          <article class="project-card" data-reveal>
+            <div class="project-id"><span>01</span><span>TRANSPORT / ANALYTICS</span></div>
+            <div class="project-main"><div><h3>Mobility Control Tower</h3><p>GTFS and GTFS-Realtime pipelines, tested dbt marts and service reliability metrics that distinguish missing data from observed events.</p></div><a class="project-arrow" href="https://github.com/KYoussefAI/Mobility_Control_Tower" target="_blank" rel="noopener noreferrer" aria-label="View Mobility Control Tower on GitHub">↗</a></div>
+            <div class="project-tags"><span>Python</span><span>Airflow</span><span>dbt</span><span>DuckDB</span><strong>PUBLIC REPOSITORY</strong></div>
           </article>
-          <article class="secondary-case" aria-labelledby="jobs-heading">
-            <div class="secondary-label"><span>CASE STUDY 003</span><span>PIPELINES / ANALYTICS</span></div>
-            <div class="secondary-graphic time-graphic" aria-label="Semantic difference between posting date and observation date"><div class="time-fields"><div><span>SOURCE FIELD</span><b>created_at</b><small>When was the job posted?</small></div><div><span>PIPELINE FIELD</span><b>ingestion_timestamp</b><small>When did we observe it?</small></div></div><span class="graphic-caption">TWO TIMESTAMPS. TWO DIFFERENT QUESTIONS.</span></div>
-            <h3 id="jobs-heading">French Job Market<br>Data Pipeline</h3>
-            <p>Daily API collection, raw-history preservation, PostgreSQL modeling and a dashboard for observable job-market trends.</p>
-            <div class="secondary-insight"><strong>The trap</strong><span>Posting date ≠ collection date. A biased source should not become a misleading trend.</span></div>
-            <a href="https://github.com/KYoussefAI/job-data-pipeline-france" target="_blank" rel="noopener noreferrer" class="secondary-link">Read the case / GitHub <span aria-hidden="true">↗</span></a>
+          <article class="project-card elt-card" data-reveal>
+            <div class="project-id"><span>02</span><span>ELT / DATA WAREHOUSING</span></div>
+            <div class="project-main"><div><h3>HydroWatch</h3><p>ELT pipeline for USGS hydrological data, with resilient Python ingestion, replayable RAW storage and dbt transformations in PostgreSQL. Star-schema modeling, idempotent incremental loads, SCD Type 2 history, quality checks and analytical marts.</p></div></div>
+            <div class="project-tags"><span>Python</span><span>PostgreSQL</span><span>dbt</span><span>Docker</span></div>
+          </article>
+          <article class="project-card" data-reveal>
+            <div class="project-id"><span>03</span><span>STREAMING / MACHINE LEARNING</span></div>
+            <div class="project-main"><div><h3>Amazon Reviews Pipeline</h3><p>Sentiment model evaluation combined with Kafka events, Spark Structured Streaming inference, MongoDB persistence and analytical dashboards.</p></div><a class="project-arrow" href="https://github.com/KYoussefAI/amazon-reviews-streaming-pipeline" target="_blank" rel="noopener noreferrer" aria-label="View Amazon Reviews Streaming Pipeline on GitHub">↗</a></div>
+            <div class="project-tags"><span>PySpark</span><span>Kafka</span><span>MongoDB</span><span>Flask</span><strong>PUBLIC REPOSITORY</strong></div>
           </article>
         </div>
-        <div class="more-work"><p>OTHER WORK: <a href="https://github.com/KYoussefAI/olist-data-warehouse-bi-v2" target="_blank" rel="noopener noreferrer">Olist Data Warehouse & BI ↗</a> <span>·</span> <a href="https://github.com/KYoussefAI" target="_blank" rel="noopener noreferrer">Explore all public projects ↗</a></p></div>
       </div>
     </section>
 
-    <section class="principles shell" id="principles" aria-labelledby="principles-heading">
-      <div class="principles-heading"><span class="section-number">02 / HOW I THINK</span><h2 id="principles-heading">Engineering is in<br>the <em>decisions.</em></h2></div>
-      <div class="principle-list">
-        <article><span>01</span><div><h3>What does the data actually say?</h3><p>Absence of evidence is not evidence of an event. Metrics need carefully defined denominators and explicit unknowns.</p></div><span class="principle-arrow">↗</span></article>
-        <article><span>02</span><div><h3>Can we reproduce this tomorrow?</h3><p>Immutable source snapshots, deterministic processing, idempotent runs and tests matter before a polished dashboard does.</p></div><span class="principle-arrow">↗</span></article>
-        <article><span>03</span><div><h3>Where should responsibility live?</h3><p>Keep ingestion, validation, transformation, orchestration and presentation separate enough to debug and evolve.</p></div><span class="principle-arrow">↗</span></article>
+    <section class="about-section wrap" id="background" aria-labelledby="background-heading">
+      <div class="about-lede" data-reveal><p class="eyebrow">02 / BACKGROUND</p><h2 id="background-heading">The person<br>behind the pipeline.</h2><p>I work across the boundary between raw data and reliable decisions: defining the grain, preserving inputs, testing assumptions and making systems repeatable.</p><a href="https://kyoussefai.github.io/assets/Youssef_Khaloufi_CV_Data_Engineering_2027.pdf" target="_blank" rel="noopener noreferrer" class="under-link">Read my CV ↗</a></div>
+      <div class="timeline" data-reveal>
+        <div class="timeline-item"><span>2026</span><div><strong>Data Engineering Intern</strong><small>FST Tangier · Mobility Control Tower</small></div></div>
+        <div class="timeline-item"><span>2025—2027</span><div><strong>MST — Artificial Intelligence &amp; Data Science</strong><small>FST Tangier</small></div></div>
+        <div class="timeline-item"><span>2024—2025</span><div><strong>LST — Statistics &amp; Data Science</strong><small>FST Tangier</small></div></div>
+        <div class="timeline-item"><span>LANGUAGES</span><div><strong>Arabic · English C1 · French B2</strong></div></div>
       </div>
     </section>
-
-    <section class="about-section" id="about" aria-labelledby="about-heading"><div class="shell about-layout"><div class="about-heading"><span class="section-number">03 / ABOUT</span><h2 id="about-heading">Behind the<br><em>pipeline.</em></h2><div class="about-monogram" aria-hidden="true">YK<span>↗</span></div></div><div class="about-copy"><p class="about-lead">I’m Youssef Khaloufi, an M2 Artificial Intelligence & Data Science student at FST Tangier, specializing in data engineering and analytics engineering.</p><p>I’m drawn to the less glamorous questions that make data dependable: what a field really means, what happens when an API fails, how a rerun behaves and whether a metric can be explained.</p><div class="bio-facts"><div><span>2026</span><div><strong>Data Engineering Intern</strong><small>FST Tangier · Mobility Control Tower</small></div></div><div><span>2025—27</span><div><strong>MST · Artificial Intelligence & Data Science</strong><small>FST Tangier</small></div></div><div><span>2024—25</span><div><strong>LST · Statistics & Data Science</strong><small>FST Tangier</small></div></div></div><div class="about-footer"><span>LANGUAGES / ARABIC · ENGLISH C1 · FRENCH B2</span><a href="assets/Youssef_Khaloufi_CV_Data_Engineering_2027.pdf" target="_blank" rel="noopener">View CV ↗</a></div></div></div></section>
-
-    <section class="contact-section" id="contact" aria-labelledby="contact-heading"><div class="shell contact-layout"><span class="section-number">04 / WHAT'S NEXT</span><div><p class="contact-pretitle"><span class="signal-dot"></span> AVAILABLE FOR A 2027 PFE / FEBRUARY START</p><h2 id="contact-heading">LET'S BUILD<br><em>THE REAL THING.</em></h2><p>Looking for an internship in data engineering, analytics engineering or data platforms. I’d be glad to discuss your team’s challenges.</p><div class="contact-actions"><a class="action-primary action-invert" href="mailto:youssefkhaloufi43@gmail.com">Get in touch <span aria-hidden="true">↗</span></a><a class="contact-link" href="https://www.linkedin.com/in/khaloufi-youssef" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a class="contact-link" href="https://github.com/KYoussefAI" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div></div></section>
+    <section class="contact-section" id="contact"><div class="wrap contact-layout" data-reveal><div><p class="eyebrow">03 / CONTACT</p><h2>Let's talk<br>engineering.</h2></div><div><p>Interested in my projects, technical approach or working together? I’d be glad to have a conversation.</p><a class="contact-button" href="mailto:youssefkhaloufi43@gmail.com">Email me <span aria-hidden="true">↗</span></a></div></div></section>
   </main>
-  <footer class="site-footer shell"><span>© <span id="year">2026</span> YOUSSEF KHALOUFI</span><span>DESIGNED AROUND THE WORK, NOT THE HYPE.</span><a href="#top">BACK TO TOP ↑</a></footer>
-  <script src="script.js"></script>
+  <footer class="wrap footer"><span>© <span id="year">2026</span> YOUSSEF KHALOUFI</span><span>BUILT AROUND THE WORK.</span><a href="#top">BACK TO TOP ↑</a></footer>
 </body>
 </html>
