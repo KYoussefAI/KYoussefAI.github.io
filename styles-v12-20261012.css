@@ -317,7 +317,6 @@
 @media(max-width:620px){.hero-description .intro-line + .intro-line{margin-top:.72em}}
 
 /* v12: user-directed introduction line breaks, with natural wrapping on narrow screens. */
-.hero-description .intro-break{display:block;content:""}
 @media(max-width:1199px){
   .hero-description .intro-break{display:none}
 }
